@@ -1,6 +1,9 @@
-## Welcome to GitHub Pages
+## Welcome to Law Docs(subject to change)
 
-You can use the [editor on GitHub](https://github.com/jachiike-madubuko/law-docs/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+If this is your first time uses this repo, start by cloning:
+
+  `git clone https://github.com/jachiike-madubuko/law-docs.git`
+  
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
