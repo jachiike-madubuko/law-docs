@@ -7,8 +7,6 @@ python:
 
 
 
-script:
-  - pytest
 
 env:
   - DJANGO=2.0.1
@@ -32,3 +30,5 @@ notifications:
     #      - jachi36@gmail.com
    #       - odeajustin@gmail.com
    #       - waylon@msulaunchpad.org
+script:
+  - pytest
