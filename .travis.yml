@@ -3,7 +3,7 @@ python:
   - "3.5"
   - "3.6"
   - "2.6"
-  -  "2.7"
+  - "2.7"
 
 
 
@@ -22,3 +22,11 @@ install:
   - pip install .
   - pip install -q Django==$DJANGO --quiet
   - python setup.py -q install
+
+
+notifications:
+    email:
+        recipients:
+          - jachi36@gmail.com
+          - odeajustin@gmail.com
+          - waylon@msulaunchpad.org
