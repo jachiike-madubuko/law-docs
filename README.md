@@ -4,37 +4,14 @@ If this is your first time uses this repo, start by cloning:
 
   `git clone https://github.com/jachiike-madubuko/legal_gen.git`
   
+## Technologies & Softwares
+Github is used for version control
+[Travis-CI](https://travis-ci.org/) is used for continuous integration 
+[Heroku Deployment](https://devcenter.heroku.com/categories/python)
+[Python Django](https://www.djangoproject.com/)
+[Typeform API]( https://developer.typeform.com/responses/)
+[File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) key = AfEkWPbqOQYqKQt291D7dz 
+[Building a text editor with PyQt: Part 1](http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-one/143) 
+[PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jachiike-madubuko/law-docs/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
