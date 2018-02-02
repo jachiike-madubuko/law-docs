@@ -27,6 +27,6 @@ install:
 notifications:
     email:
         recipients:
-          - jachi36@gmail.com
+    #      - jachi36@gmail.com
    #       - odeajustin@gmail.com
    #       - waylon@msulaunchpad.org
