@@ -8,7 +8,7 @@ python:
 
 
 script:
-  #- python pytest
+  - python pytest
 
 env:
   - DJANGO=2.0.1
@@ -21,6 +21,7 @@ before_install:
 install:
  # - pip install .
   - pip install -q Django==2.0 --quiet
+  - pip install -r requirements.txt
   #- pip install -U pytest
 #  - python setup.py -q install
 
