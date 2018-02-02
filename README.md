@@ -13,4 +13,5 @@ If this is your first time uses this repo, start by cloning:
 6. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
 7. [Building a text editor with PyQt: Part 1](http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-one/143) is used a simple text editor for lawyers creating their template forms.
 8. [PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) is the database management system.
+9. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
  
