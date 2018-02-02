@@ -8,7 +8,7 @@ python:
 
 
 script:
-  - pytest
+  - python pytest
 
 env:
   - DJANGO=2.0.1
