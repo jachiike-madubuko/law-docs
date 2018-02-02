@@ -14,5 +14,5 @@ If this is your first time uses this repo, start by cloning:
 7. [Building a text editor with PyQt: Part 1](http://www.binpress.com/tutorial/building-a-text-editor-with-pyqt-part-one/143) is used a simple text editor for lawyers creating their template forms.
 8. [PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) is the database management system.
 9. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
-10. [Legalgendocs](legalgendocs.com) is the URL that our website will use.  
+10. [Legalgendocs.com](legalgendocs.com) is the URL that our website will use.  
  
