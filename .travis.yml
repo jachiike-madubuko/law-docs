@@ -8,7 +8,7 @@ python:
 
 
 script:
-  - python /django432/mysite/manage.py sycndb --noinput
+  - pytest
 
 env:
   - DJANGO=2.0.1
