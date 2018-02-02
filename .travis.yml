@@ -21,12 +21,12 @@ before_install:
 install:
  # - pip install .
   - pip install -q Django==2.0 --quiet
-  - python setup.py -q install
+#  - python setup.py -q install
 
 
 notifications:
     email:
         recipients:
           - jachi36@gmail.com
-          - odeajustin@gmail.com
-          - waylon@msulaunchpad.org
+   #       - odeajustin@gmail.com
+   #       - waylon@msulaunchpad.org
