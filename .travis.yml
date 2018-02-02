@@ -2,17 +2,23 @@ language: python
 python:
   - "3.5"
   - "3.6"
-  - "django"
+  - "2.6"
+  -  "2.7"
+
 
 
 script:
-  - pytest
+  - python manage.py sycndb --noinput
 
 env:
-  - DJANGO_VERSION=1.10.8
+  - DJANGO=1.4.1
   - DJANGO_VERSION=1.11.5
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=your_project.settings
+  - export PIP_USE_MIRRORS=true
 
 install:
   - pip install .
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install -q Django==$DJANGO --quiet
   - python setup.py -q install
