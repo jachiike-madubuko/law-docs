@@ -1,8 +1,8 @@
-## Welcome to Law Docs(subject to change)
+## Welcome to Legal Gen
 
 If this is your first time uses this repo, start by cloning:
 
-  `git clone https://github.com/jachiike-madubuko/law-docs.git`
+  `git clone https://github.com/jachiike-madubuko/legal_gen.git`
   
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
