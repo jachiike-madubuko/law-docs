@@ -11,13 +11,13 @@ You can now start editting the code. When you've come to a stopping point stage 
 -`git add -A`
 
 You'll want to pull any changes that have been made to the code while you were editting:
--`git pull`
+-`git pull https://github.com/jachiike-madubuko/legal_gen.git`
 
 Then you will commit your changes it to your branch
 -`git commit -am "A quick message about what you've changed"`
 
 Now push your commit to the parent branch:
--`git push`
+-`git push https://github.com/jachiike-madubuko/legal_gen.git`
 
 Thank you for updating the repo! 
   
