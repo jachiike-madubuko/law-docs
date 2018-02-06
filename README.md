@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+## Welcome to Legal Gen
 
-You can use the [editor on GitHub](https://github.com/jachiike-madubuko/law-docs/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+If this is your first time uses this repo, start by cloning:
+  -`git init`
+  -`git pull https://github.com/jachiike-madubuko/legal_gen.git`
+  
+Now you will checkout a new branch so the code you add doesn't indirectly crash the working program:
+-`git checkout -b`
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You can now start editting the code. When you've come to a stopping point stage your code:
+-`git add -A`
 
-### Markdown
+You'll want to pull any changes that have been made to the code while you were editting:
+-`git pull https://github.com/jachiike-madubuko/legal_gen.git`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Then you will commit your changes it to your branch
+-`git commit -am "A quick message about what you've changed"`
 
-```markdown
-Syntax highlighted code block
+Now push your commit to the parent branch:
+-`git push https://github.com/jachiike-madubuko/legal_gen.git`
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jachiike-madubuko/law-docs/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Thank you for updating the repo! 
+  
+## Technologies & Softwares
+1. Github is used for version control
+2. [Travis-CI](https://travis-ci.org/) is used for continuous integration 
+3. [Heroku Deployment](https://devcenter.heroku.com/categories/python) is used for deployment
+4. [Python Django](https://www.djangoproject.com/) is the framework used to implement the MVC layout
+5. [jQuery](https://jquery.com/) is used to implement AJAX and the UI for Document editting.
+6. [TinyMCE](https://www.tinymce.com/) is a feature rich text editor with a jQuery plugin that will make document editing simple
+7. [Djano-Front](http://django-front.readthedocs.io/en/latest/setup.html#add-your-own-editor) is used a socket for TinyMCE. A user will click on a section they would like editted, then Django-front will use jQuery to place a TinyMCE editor on top of that section. [Example here](https://camo.githubusercontent.com/653bba1510950ead2922e198bc5ceb1d76434cb3/687474703a2f2f646a616e676f2d66726f6e742e72656164746865646f63732e6f72672f656e2f6c61746573742f5f696d616765732f66726f6e742d656469742d75736167652e676966)
+7. [Taggit](https://django-taggit.readthedocs.io/en/latest/) is used for simple tagging of DocPieces and Documents, and Forms
+7. [Typeform API]( https://developer.typeform.com/responses/) is used for client interfacing when gathering data to craft a document
+8. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
+10. [PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) is the database management system.
+11. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
+12. [Legalgendocs.com](legalgendocs.com) is the URL that our website will use.  
+13. [CloudRail](https://cloudrail.com/) is used for easy API integration.
+ 
