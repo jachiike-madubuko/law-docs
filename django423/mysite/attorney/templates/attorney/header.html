@@ -6,14 +6,55 @@
 	<meta charset="utf-8" />
 	{% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'attorney/css/bootstrap.min.css' %}" type = "text/css"/>
-	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
-	
-	<style type="text/css">
-		html,
-		body {
-		  height:100%
-		}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<style>
+	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
 	</style>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		//regular sortable
+   	$(function() {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+	//$(".ui-state-default").append("<button> edit </button>")
+		 dialog = $( "#editor" ).dialog({
+		  autoOpen: false,
+		  height: 400,
+		  width: 350,
+		  modal: true,
+		  buttons: {
+			"Done": function() {
+				var editted = $("#swag").val();
+				$(".small").html(editted);
+				$(".small").removeClass("small");
+				dialog.dialog( "close" );
+
+			},
+			Cancel: function() {
+			  dialog.dialog( "close" );
+
+			}
+		  }
+    });
+  // Initializes all textareas with the tinymce class
+ $( "li p" ).on( "click", function() {
+	 var old = $(this).html();
+	 $("#swag").text(old);
+	 $(this).addClass("small");
+      dialog.dialog( "open" );
+    });
+
+
+ //end of reg sortable
+//$('#tinymce').tinymce().getContent());
+ });
+  </script>
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
 </head>
 
 <body class="body" style="background-color:#f6f6f6">
@@ -36,7 +77,10 @@
 		<div class="row">
 		  <div class="col-sm-2">
 		  <br>
-
+			 <div id = "editor" title = "Editor">
+			  <p> Edit the DocPiece here</p>
+			  <textarea id="swag">Edit here</textarea>
+		  </div>
 		  <br>
 		   <!-- Great, til you resize. -->
 			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
@@ -49,11 +93,22 @@
 			</div> <!--well bs-sidebar affix-->
 		  </div> <!--col-sm-2-->
 		  <div class="col-sm-10">
-		  
+
 			<div class='container-fluid'>
+			<button id="edit"> edit</button>
+
 			<br><br>
 			   {% block content %}
-			   {% endblock %}	
+			   {% endblock %}
+				<ul id="sortable">
+					<li class="ui-state-default"><p>Item 1</p></li>
+					<li class="ui-state-default"><p>Item 2</p></li>
+					<li class="ui-state-default"><p>Item 3</p></li>
+					<li class="ui-state-default"><p>Item 4</p></li>
+					<li class="ui-state-default"><p>Item 5</p></li>
+					<li class="ui-state-default"><p>Item 6</p></li>
+					<li class="ui-state-default"><p>Item 7</p></li>
+				</ul>
 			</div>
 		  </div>
 		</div> 
