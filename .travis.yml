@@ -9,8 +9,9 @@ python:
 
 
 env:
-  - DJANGO=2.0.1
-  - DJANGO_VERSION=2.0.0
+  - DJANGO=1.11.10
+  - DJANGO_VERSION=1.11.10
+  
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=your_project.settings
@@ -18,7 +19,7 @@ before_install:
 
 install:
  # - pip install .
-  - pip install -q Django==2.0 --quiet
+  - pip install -q Django==1.11.10 --quiet
   - pip install -r requirements.txt
   #- pip install -U pytest
 #  - python setup.py -q install
