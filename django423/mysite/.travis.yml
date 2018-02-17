@@ -32,4 +32,4 @@ notifications:
    #       - odeajustin@gmail.com
    #       - waylon@msulaunchpad.org
 script:
-  - manage.py test
+  - pyhton manage.py test
