@@ -13,11 +13,21 @@
   #sortable, #sortable2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px; }
   #sortable li span { position: absolute; margin-left: 4.3em; }
 	</style>
+	<link rel="stylesheet" type="text/css" href="django423/mysite/attorney/templates/attorney/bower_components/simditor/styles/simditor.scss" />
+
+	<script type="text/javascript" src="django423/mysite/attorney/templates/attorney/bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="django423/mysite/attorney/templates/attorney/bower_components/simple-module/lib/module.js"></script>
+	<script type="text/javascript" src="django423/mysite/attorney/templates/attorney/bower_components/simple-hotkeys/lib/hotkeys.js"></script>
+	<script type="text/javascript" src="django423/mysite/attorney/templates/attorney/bower_components/simple-uploader/lib/uploader.jss"></script>
+	<script type="text/javascript" src="django423/mysite/attorney/templates/attorney/bower_components/simditor/lib/simditor.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		//regular sortable
    	$(function() {
+		// var editor = new Simditor({
+		//    textarea: $("#swag");
+	 	//  });
         $("#sortable").sortable();
         $("#sortable").disableSelection();
 	    $("li span").append("<button> delete </button>");
@@ -45,6 +55,10 @@
 			}
 		  }
     });
+
+
+
+
   // Initializes all textareas with the tinymce class
  $( "li p" ).on( "click", function() {
 	 var old = $(this).html();
@@ -87,7 +101,8 @@ $("#add").on("click", function(){
 		  <br>
 			 <div id = "editor" title = "Editor">
 			  <p> Edit the DocPiece here</p>
-			  <textarea id="swag">Edit here</textarea>
+			  <textarea id="swag" placeholder="Balabala" autofocus>Edit here</textarea>
+			 </div>
 		  </div>
 		  <br>
 		   <!-- Great, til you resize. -->
@@ -110,9 +125,9 @@ $("#add").on("click", function(){
 			   {% endblock %}
 				<ul id="sortable">
 					<li class="ui-state-default"><span></span><p>Item 1</p></li>
-					<li class="ui-state-default"><span></span><p>Item 2</p></li>
+					<li class="ui-state-default ui-state-disabled"><span></span><p>Item 2</p></li>
 					<li class="ui-state-default"><span></span><p>Item 3</p></li>
-					<li class="ui-state-default"><span></span><p>Item 4</p></li>
+					<li class="ui-state-default ui-state-disabled"><span></span><p>Item 4</p></li>
 					<li class="ui-state-default"><span></span><p>Item 5</p></li>
 					<li class="ui-state-default"><span></span><p>Item 6</p></li>
 					<li class="ui-state-default"><span></span><p>Item 7</p></li>
