@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.5"
+  "3.5"
   - "3.6"
 # - "2.6"
  # - "2.7"
@@ -28,7 +28,7 @@ install:
 notifications:
     email:
         recipients:
-          - jachi36@gmail.com
+          - jachiike.madubuko@gmail.com
    #       - odeajustin@gmail.com
    #       - waylon@msulaunchpad.org
 script:
