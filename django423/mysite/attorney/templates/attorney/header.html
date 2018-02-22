@@ -10,9 +10,10 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	<style>
     /* css for the Document Area */
-	#sortable, #sortable2 { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #sortable, #sortable2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px; }
-	#containment-wrapper { width: 95%; height:1500px; border:2px solid #ccc; padding: 10px; }
+	#sortable, #sortable2 { list-style-type: none; margin: 0; padding: 0; width: 90%;}
+    #sortable, #sortable2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px;}
+	#containment-wrapper { margin: 0 auto; width: 65%; height:1500px; padding: 10px; box-shadow: 1px 1px 30px #ddd;}
+	.italics {border: 3px solid #4698FF; padding: 20px; border-radius: 10px; font-size: .8em;}
 	</style>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -110,7 +111,7 @@ $(".hard").removeClass("hard");
 
 </head>
 
-<body class="body" style="background-color:#f6f6f6">
+<body class="body" style="background-color: white">
 	<div class="container-fluid" style="min-height:95%; ">
 		<div class="row">
 			  <div class="col-sm-2">
@@ -137,7 +138,7 @@ $(".hard").removeClass("hard");
 		  <br>
 		   <!-- Great, til you resize. -->
 			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-			<div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+			<div class="well bs-sidebar" id="sidebar" style="background-color: purple">
 			  <ul class="nav nav-pills nav-stacked">
 				<li><a href='/'>Home</a></li>
 				<li><a href='/blog/'>Blog</a></li>
@@ -147,17 +148,18 @@ $(".hard").removeClass("hard");
 		  </div> <!--col-sm-2-->
 		  <div class="col-sm-10" id="containment-wrapper">
 
-			<div class='container-fluid' >
+			<div class='container-fluid' style ="background-color: grey">
 
 			<br><br>
 			   {% block content %}
 			   {% endblock %}
-				<ul id="sortable">
+				<ul id="sortable" style ="background-color: green">
 					<li class="ui-state-defaults ui-state-disabled"><span></span><p>Header</p></li>
 					<li id="logo" class="ui-state-defaults ui-state-disabled"><span></span><p>Logo</p></li>
                     <li class='ui-state-defaults'><p><button style="width:820px" class="addbut"> add</button></p></li>
                     <li id='del' class='ui-state-defaults'> <button class ="delbut"> delete </button></li>
-                    <li class='ui-state-defaults'><p><button class ="delbut"> delete </button></p><p class = 'italics'>Now this is a story all about how my life got flipped turned upside down and I'd like to take a minute, just sit right there I'll tell you how I became the prince of a town called Bel-Air.</p><p><button style="width:820px" class="addbut"> add</button></p></li>
+                    <li class='ui-state-defaults'><p><button class ="delbut"> delete </button></p><p class = 'italics'>Now this is a story all about how my life got flipped turned upside down and I'd like to take a minute, just sit right there I'll tell you how I became the prince of a town called Bel-Air.</p><p><button style="width:820px" class="addbut"> add</button></p>
+                    </li>
 				</ul>
 			</div>
 		  </div>
@@ -165,7 +167,7 @@ $(".hard").removeClass("hard");
 		</div>
 	</div>
 	<footer>
-		<div class="container-fluid" style='margin-left:15px'>
+		<div class="container-fluid" style='margin-left:15px; background-color: pink;'>
 			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
 		</div>
 	</footer>	
