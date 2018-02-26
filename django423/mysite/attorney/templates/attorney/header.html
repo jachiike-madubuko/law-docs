@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <head>
 	<title>LegalGen </title>
 	<meta charset="utf-8" />
-	{% load staticfiles %}
+	<!-- {% load staticfiles %} -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+	<link rel="stylesheet" href="../../../mysite/static/css/reset.css">
 	<link rel="stylesheet" href="{% static 'attorney/css/bootstrap.min.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="/resources/demos/style.css">
-	<style>
-    /* css for the Document Area */
-	#sortable, #sortable2 { list-style-type: none; margin: 0; padding: 0; width: 90%;}
-    #sortable, #sortable2 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px;}
-	#containment-wrapper { margin: 0 auto; width: 65%; height:1500px; padding: 10px; box-shadow: 1px 1px 30px #ddd;}
-	.italics {border: 3px solid #4698FF; padding: 20px; border-radius: 10px; font-size: .8em;}
-	</style>
+	<link rel="stylesheet" href="../../../mysite/static/css/Attorney.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
@@ -38,8 +32,8 @@
         //will be abstracted into a django front end editor in future
        var dialog = $( "#editor" ).dialog({
 		  autoOpen: false,
-		  height: 500,
-		  width: 500,
+		  height: 400,
+		  width: 900,
 		  modal: true,
 		  buttons: {
 			"Done": function() {        //clicking the done button sends current input to the DocPiece
@@ -50,7 +44,6 @@
 			},
 			Cancel: function() {
 			  dialog.dialog( "close" );
-
 			}
 		  }
     });
@@ -113,63 +106,54 @@ $(".hard").removeClass("hard");
 
 </head>
 
-<body class="body" style="background-color: white">
-	<div class="container-fluid" style="min-height:95%; ">
+<body>
+	<div class="container-fluid">
+		<div class= "navigation">
+			<img src= 'LegalGenLogoBlue.png' class="logo-img" alt="face">
+			<div class="links">
+			 		<ul class="nav nav-pills nav-stacked">
+						<li><a href='/'>Dashboard</a></li>
+						<li><a href='/blog/'>Account Info</a></li>
+						<li><a href='/contact/'>Logout</a></li>
+			 		</ul>
+			</div>
+		</div>
 		<div class="row">
-			  <div class="col-sm-2">
-				  <br>
-				  <center>
-					<img src= 'scale.png' class="responsive-img" style='max-height:100px;' alt="face">
-				  </center>
-			  </div>
-			  <div class="col-sm-10">
-				  <center>
-				  <h1>LegalGen</h1>
-				  </center>
-			  </div>
-		</div><hr>
-		<div class="row">
-		  <div class="col-sm-2">
-		  <br>
-			 <div id = "editor" title = "DocPiece Editor">
-			  <p> Edit the DocPiece here</p>
-			  <textarea id="swag" placeholder="Balabala" rows= "15",
-		  cols= "50", autofocus>Edit here</textarea>
-			 </div>
-		  </div>
-		  <br>
-		   <!-- Great, til you resize. -->
+		  	<div class="col-sm-2">
+				<div id = "editor">
+			 		<h1> Edit the DocPiece here: </h1>
+			  		<textarea id="swag" placeholder="Balabala" rows= "15",
+		  				cols= "50", autofocus>Edit your text block below.</textarea>
+		  			<br>
+				</div>
+		  	</div>
+		   	<!-- Great, til you resize. -->
 			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-			<div class="well bs-sidebar" id="sidebar" style="background-color: purple">
-			  <ul class="nav nav-pills nav-stacked">
-				<li><a href='/'>Home</a></li>
-				<li><a href='/blog/'>Blog</a></li>
-				<li><a href='/contact/'>Contact</a></li>
-			  </ul>
-			</div> <!--well bs-sidebar affix-->
-		  </div> <!--col-sm-2-->
-		  <div class="col-sm-10" id="containment-wrapper">
+		  	</div> <!--col-sm-2-->
 
-			<div class='container-fluid' style ="background-color: grey">
+		  <br>
+		  <div class="col-sm-10" id="containment-wrapper">
+			<div class='container-fluid'>
 
 			<br><br>
-			   {% block content %}
-			   {% endblock %}
-				<ul id="sortable" style ="background-color: green">
+			   <!-- {% block content %} -->
+			   <!-- {% endblock %} -->
+				<ul id="sortable">
 					<li class="ui-state-defaults ui-state-disabled"><span></span><p>Header</p></li>
-					<li id="logo" class="ui-state-defaults ui-state-disabled"><span></span><p>Logo</p></li>
-                    <li class='ui-state-defaults'><p><button style="width:820px" class="addbut"> add</button></p></li>
-                    <li id='del' class='ui-state-defaults'> <button class ="delbut"> delete </button></li>
-                    <li class='ui-state-defaults'><p><button class ="delbut"> delete </button></p><p class = 'italics'>Now this is a story all about how my life got flipped turned upside down and I'd like to take a minute, just sit right there I'll tell you how I became the prince of a town called Bel-Air.</p><p><button style="width:820px" class="addbut"> add</button></p>
+                    <li class='ui-state-defaults'>
+                    	<p>
+                    		<button class="addbut"></button>
+                    	</p>
                     </li>
+                    <li id='del' class='ui-state-defaults'> <button class ="delbut"></button></li>
 				</ul>
 			</div>
 		  </div>
-        <button id="cont">Continue</button>
+        <button id="cont">CONTINUE</button>
 		</div>
 	</div>
 	<footer>
-		<div class="container-fluid" style='margin-left:15px; background-color: pink;'>
+		<div class="container-fluid">
 			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
 		</div>
 	</footer>	
@@ -182,7 +166,7 @@ Copyright 2018
 <head>
 	<title>LegalGen</title>
 	<meta charset="utf-8" />
-	{% load staticfiles %}
+	<!-- {% load staticfiles %} -->
 	<link rel="stylesheet" href="{% static 'attorney/css/bootstrap.min.css' %}" type = "text/css"/>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 	
