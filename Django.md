@@ -1,4 +1,4 @@
-#How to access Django server# 
+# How to access Django server # 
 1. First you neeed to cd into the directory LEGALGEN. 
 2. Second you need to cd into the directory lawdocs
 3. Third you need to cd into the directory  django423 
