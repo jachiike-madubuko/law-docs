@@ -34,6 +34,6 @@ Thank you for updating the repo!
 8. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
 10. [PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) is the database management system.
 11. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
-12. [Legalgendocs.com](legalgendocs.com) is the URL that our website will use.  
+12. [Legalgenddocs.com](legalgendocs.com) is the URL that our website will use.  
 13. [CloudRail](https://cloudrail.com/) is used for easy API integration.
  
