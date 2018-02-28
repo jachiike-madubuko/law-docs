@@ -1,0 +1,37 @@
+body{
+	background-color: white;
+}
+
+#sortable, #sortable2 { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 90%;
+}
+
+#sortable, #sortable2 li {
+	margin: 0 3px 3px 3px; 
+	padding: 0.4em; 
+	padding-left: 1.5em; 
+	font-size: 1.4em; 
+	height: 50px;
+}
+	
+#containment-wrapper { 
+	margin: 0 auto; 
+	width: 65%; 
+	height:1500px;
+	padding: 10px;
+	box-shadow: 1px 1px 30px #ddd;
+}
+	
+.italics {
+	border: 3px solid #4698FF;
+	padding: 20px;
+	border-radius: 10px;
+	font-size: .8em;
+}
+
+.container-fluid {
+ 	min-height:95%;
+}
