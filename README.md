@@ -1,4 +1,4 @@
-# Welcome to Legal Gen
+# [Welcome to Legal Gen](https://jachiike-madubuko.github.io/legal_gen/)
 
 ## Getting Started 
 
@@ -48,7 +48,5 @@ Thank you for updating the repo!
 
 
 
-## User Guide
+## [User Guide](https://www.screencast.com/t/ZEM5LJ59d)
 
-### Document Generator
-	Insert Workflow Pictures and Video
