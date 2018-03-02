@@ -1,8 +1,10 @@
-## Welcome to Legal Gen
+# Welcome to Legal Gen
 
-If this is your first time uses this repo, start by cloning:
-  -`git init`
-  -`git pull https://github.com/jachiike-madubuko/legal_gen.git`
+## Getting Started 
+
+If this is your first time uses this repo, start by cloning: 
+  -`git init
+  git clone https://github.com/jachiike-madubuko/legal_gen.git`
   
 Now you will checkout a new branch so the code you add doesn't indirectly crash the working program:
 -`git checkout -b`
@@ -10,16 +12,24 @@ Now you will checkout a new branch so the code you add doesn't indirectly crash 
 You can now start editting the code. When you've come to a stopping point stage your code:
 -`git add -A`
 
-You'll want to pull any changes that have been made to the code while you were editting:
--`git pull https://github.com/jachiike-madubuko/legal_gen.git`
-
 Then you will commit your changes it to your branch
 -`git commit -am "A quick message about what you've changed"`
+
+
+You'll want to checkout the original branch and pull any changes that have been made to the code while you were editting:
+
+-`git checkout
+git pull`
+
+Now merge with your newest branch:
+
+-`git merge`
 
 Now push your commit to the parent branch:
 -`git push https://github.com/jachiike-madubuko/legal_gen.git`
 
 Thank you for updating the repo! 
+
   
 ## Technologies & Softwares
 1. Github is used for version control
@@ -32,8 +42,13 @@ Thank you for updating the repo!
 7. [Taggit](https://django-taggit.readthedocs.io/en/latest/) is used for simple tagging of DocPieces and Documents, and Forms
 7. [Typeform API]( https://developer.typeform.com/responses/) is used for client interfacing when gathering data to craft a document
 8. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
-10. [PostgreSQL](https://www.postgresql.org/docs/current/static/functions-aggregate.html) is the database management system.
+10. [MySQL](https://www.mysql.com/) is the database management system.
 11. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
 12. [legalgenddoc.com](http://legalgenddoc.com) is the URL that our website will use.  
-13. [CloudRail](https://cloudrail.com/) is used for easy API integration.
- 
+
+
+
+## User Guide
+
+### Document Generator
+	Insert Workflow Pictures and Video
