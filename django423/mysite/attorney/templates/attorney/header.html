@@ -305,7 +305,7 @@ $("#testQ").on('click', function () {
 		$("#sender").hide();
         // var sendy = event.target.after("<div id='sender'>  </div>");
         //   $("#sender").append($(".italics").html());
-        $(".italics").each(function (i) {
+        $(".italics").not("#sortable .pet").each(function (i) {
             $(this).prepend("&nbsp; &nbsp; &nbsp; &nbsp;");
             $(this).append("<br />");
             $(this).append("<br />");
@@ -404,7 +404,6 @@ $("#testQ").on('click', function () {
 	});
   </script>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
-//comment
 </head>
 
 <body>
