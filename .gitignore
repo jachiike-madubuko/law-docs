@@ -132,7 +132,7 @@ cmake-build-release/
 out/
 .iml
 .idea/workspace.xml
-
+workspace.xml
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
