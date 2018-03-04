@@ -115,17 +115,6 @@ li > h1{
     color: white;
 }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #4698FF;
-    color: white;
-    text-align: center;
-}
-
-
 .links > ul > li > a{
     text-decoration: none;
     font-family: 'Open Sans', sans-serif;
