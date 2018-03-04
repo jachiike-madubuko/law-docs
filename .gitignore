@@ -99,6 +99,10 @@ env
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+vcs.xml
+modules.xml
+misc.xml
+legal_gen.iml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

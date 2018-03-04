@@ -44,7 +44,7 @@ li > h1{
 
 }
 .witdent{
-  text-indent: 2em;
+  text-indent: -2en;
     text-align: right;
 }
 
@@ -60,8 +60,8 @@ li > h1{
 	margin: 0 auto;
 	width: 90%;
 }
-	
-.italics, .ui-state-highlight {
+
+.italics {
 	box-sizing: border-box;
 	background-color: white;
 	font-family: 'Open Sans', sans-serif;
@@ -115,6 +115,17 @@ li > h1{
     color: white;
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #4698FF;
+    color: white;
+    text-align: center;
+}
+
+
 .links > ul > li > a{
     text-decoration: none;
     font-family: 'Open Sans', sans-serif;
@@ -132,7 +143,7 @@ li > h1{
 	outline: none;
 }
 
-label, #editor, #qbox, #final, #dl, #addbox h1{
+#editor, #qbox, #final, #dl, #addbox h1{
 	margin-bottom: 15px;
 	color: #4698FF;
 	text-align: left;
@@ -157,7 +168,7 @@ label, #editor, #qbox, #final, #dl, #addbox h1{
 	padding: 10px;
 	width: 800px;
 	height: 200px;
-	margin: 0px auto;
+	margin: 0px,auto;
 	font-size: 1em;
 	outline: none;
 }
@@ -173,40 +184,11 @@ label, #editor, #qbox, #final, #dl, #addbox h1{
 	float: left;
 }
 
-#qList > li{
-    border-radius: 10px;
-    float: left;
-    padding-right : 90px;
-    padding-left : 20px;
-    padding-bottom : 20px;
-    width: 50px;
-    height: 50px;
-    margin: 20px;
-    margin-right: 75px;
-	box-shadow: 1px 1px 30px #ddd;
-
-}
-
-
-.appdrop, .spousedrop, .petdrop{
-    font-size: larger;
-}
-
-.app, .spouse, .pets{
-    font-color: #4698FF;
-    text-decoration: underline;
-}
-
-.app:hover, .spouse:hover, .pets:hover{
-    font-color: White;
-    background-color: #4698FF;
-    text-decoration: underline;
-}
 #dis{
 	font-size: x-small;
     width: 65%;
 }
-button, .ui-button,select {
+button, .ui-button {
 	background-color: #4698FF;
 	color: White;
 	font-family: 'Open Sans', sans-serif;
@@ -218,7 +200,7 @@ button, .ui-button,select {
 	border-radius: 8px;
 	outline: none;
 }
-#addQ:hover, #testQ:hover, #paraG:hover, #testS:hover, #secH:hover, #witS:hover, select:hover {
+#addQ:hover, #testQ:hover, #paraG:hover, #testS:hover, #secH:hover, #witS:hover {
 	background-color: #4698FF;
 	opacity: 0.7;
 	color: White;
@@ -240,8 +222,8 @@ button, .ui-button,select {
 	padding: 0px;
 	height: 16px;
 	width: 16px;
-	right:5px;
-	top: 5px;
+	right:5;
+	top: 5;
 }
 .edbut{
 	float: right;
@@ -251,8 +233,8 @@ button, .ui-button,select {
 	padding: 0px;
 	height: 16px;
 	width: 16px;
-	right:5px;
-	top: 5px;
+	right:5;
+	top: 5;
 }
 
 .delbut:hover{
@@ -260,16 +242,16 @@ button, .ui-button,select {
 	background-color: #FF4646;
 	padding: 0px;
 	width: 16px;
-	right:5px;
-	top: 5px;
+	right:5;
+	top: 5;
 }
 .edbut:hover{
 	float: right;
 	background-color: #4646FF;
 	padding: 0px;
 	width: 16px;
-	right:5px;
-	top: 5px;
+	right:5;
+	top: 5;
 }
 
 .addbut{
@@ -288,9 +270,11 @@ button, .ui-button,select {
 	background-color: #4698FF;
 }
 .fa {
-    padding: 5px;
+    padding: 25x;
     font-size: 5px;
-    text-align: center;
+    width: 25px;
+	height:25px;
+    text-align: right;
 	border-spacing: 5px;
     text-decoration: none;
     border-radius: 50%;
