@@ -9,12 +9,10 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-import os
-from django.conf import settings
-from django.conf.urls.static import static
-# from fabric.api import *
 
-# Buil  d paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -28,10 +26,6 @@ SECRET_KEY = 'f-&f$az@_f@9ydkymam8q+$jmpxbks)dfs2-6u+neirf1w=#7$'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-urlpatterns = [
-    # ... the rest of your URLconf goes here ...
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 # Application definition
@@ -127,12 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    'django423/mysite/mysite/static',
-]
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),

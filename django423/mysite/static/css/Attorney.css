@@ -60,7 +60,7 @@ li > h1{
 	margin: 0 auto;
 	width: 90%;
 }
-
+	
 .italics {
 	box-sizing: border-box;
 	background-color: white;
@@ -114,17 +114,6 @@ li > h1{
     text-decoration: none;
     color: white;
 }
-
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #4698FF;
-    color: white;
-    text-align: center;
-}
-
 
 .links > ul > li > a{
     text-decoration: none;
