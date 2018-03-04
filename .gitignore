@@ -86,6 +86,8 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+env
+
 
 # Spyder project settings
 .spyderproject
@@ -95,9 +97,16 @@ ENV/
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
+
+.idea
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+vcs.xml
+modules.xml
+misc.xml
+legal_gen.iml
+
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -126,6 +135,9 @@ cmake-build-release/
 # IntelliJ
 out/
 
+.iml
+.idea/workspace.xml
+workspace.xml
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
