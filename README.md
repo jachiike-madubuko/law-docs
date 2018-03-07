@@ -48,5 +48,5 @@ Thank you for updating the repo!
 
 
 
-## [User Guide](https://www.screencast.com/t/ZEM5LJ59d)
+## [User Guide](https://docs.google.com/document/d/1QC3GKInvcPRJdnacKKn6T245lnAdAL6Ad9w-RK3h-aM/edit?usp=sharing)
 
