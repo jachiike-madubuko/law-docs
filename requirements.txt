@@ -26,4 +26,4 @@ django-tinymce4==3.0.2
 django-front
 pytest==3.4.0
 pytest-django==2.8.0
-
+psycopg2==2.4.5
