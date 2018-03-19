@@ -3,9 +3,12 @@ from __future__ import unicode_literals
 from django.contrib.postgres.fields import JSONField, ArrayField
 from django.db import models
 
-
 # TODO added JSON encoder/decoder
-
+"""
+Change your models (in models.py).
+Run python django423/mysite/manage.py makemigrations to create migrations for those changes
+Run python django423/mysite/manage.py migrate --run-syncdb to apply those changes to the database.
+"""
 ###########################################START OF USER ROLES##########################################
 class Person(models.Model):
     personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True)
@@ -23,60 +26,58 @@ class Person(models.Model):
     people = models.Manager()
 
     @property
-    def full_name(self):
-        "Returns the person's full name."
+    def fullname(self):
         return '%s %s' % (self.firstname, self.lastname)
 
     class Meta:
-        managed = False
-        db_table = 'PERSON'
+        managed = True
         ordering = ["lastname"]
         verbose_name_plural = "people"
 
+
     def __str__(self):
-        return self.firstname
+        return self.fullname
 
 
 class Client(Person):
     clientdata = JSONField()  # used for merge templates
 
     class Meta:
-        managed = False
-        db_table = 'CLIENT'
-
+        managed = True
 
 class Lawyer(Person):
     lawyerdata = JSONField()
 
     class Meta:
-        managed = False
-        db_table = 'LAWYER'
-
+        managed = True
 
 class Firm(models.Model):
+    firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True)
     name = models.CharField(max_length=128)
     employee = models.ManyToManyField(Person, through='Employee', related_name='lawyers_in_firm')
 
+    class Meta:
+        managed = True
+
+    def __str__(self):
+        return self.name
 
 class Employee(models.Model):
-    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='lawyer_employed')
-    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employ_firm')
+    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='lawyer_employed', default=0)
+    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employ_firm', default=0)
     date_joined = models.DateField(auto_now_add=True)
 
     employees = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'Employee'
+        managed = True
         ordering = ["date_joined"]
-
 
 #########################################END OF USER ROLES###############################################
 
 ########################################START OF LEGALS#################################################
-
 class Legal(models.Model):
-    legalID = models.CharField(db_column='legalID', primary_key=True, max_length=9, unique=True)
+    legalID = models.AutoField(db_column='legalID', primary_key=True, max_length=9, unique=True)
     name = models.CharField(db_column='Name', max_length=512)
     type = models.CharField(db_column='Type', max_length=45, blank=True, null=True)
     created = models.DateTimeField(db_column='Created', auto_now_add=True, null=True)
@@ -92,30 +93,25 @@ class Legal(models.Model):
     legals = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'LEGAL'
         ordering = ["type"]
+        managed = True
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Document(Legal):
     filestackURL = models.URLField(db_column='fileStackURL', blank=True, null=True, unique=True)
 
     class Meta:
-        managed = False
-        db_table = 'DOCUMENT'
-
+        managed = True
 
 class Form(Legal):
     typeform = JSONField(db_column='typeForm', blank=True, null=True)
     doceditor = JSONField(db_column='docEditor', blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'FORM'
-
+        managed = True
 
 class Piece(Legal):
     content = JSONField(db_column='content', blank=True, null=True)
@@ -123,14 +119,10 @@ class Piece(Legal):
     piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'PIECE'
-
-
+        managed = True
 ###########################################END OF LEGALS##################################################
 
 ########################################START SEARCH TABLES###############################################
-
 class State(models.Model):
     STATE_CHOICES = (
         ('DC', 'District of Columbia'),
@@ -196,22 +188,18 @@ class State(models.Model):
     forState = models.ManyToManyField(Legal, through='ForState', related_name='item_in_state')
 
     class Meta:
-        managed = False
-        db_table = 'STATE'
         ordering = ['state']
+        managed = True
+
 
     def __str__(self):
         return self.state
-
-
 ########################################END SEARCH TABLES#################################################
 
 ######################################START OF USER <-> LEGAL RELATIONSHIPS###############################
-
-
 class View(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING)
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
     duration = models.DurationField()
     lastviewed = models.DateTimeField(auto_now=True, auto_now_add=False)
     numberOviews = models.IntegerField()
@@ -219,63 +207,65 @@ class View(models.Model):
     views = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'VIEW'
+        managed = True
         ordering = ["lastviewed"]
 
 
 class Use(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING)
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
     duration = models.DurationField()
     lastused = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     uses = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'USE'
         ordering = ["lastused"]
+        managed = True
+
 
 
 class Buy(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING)
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
     duration = models.DurationField()
     purchased = models.DateTimeField(auto_now_add=True)
 
     buys = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'BUY'
         ordering = ["purchased"]
+        managed = True
+
 
 
 class Own(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING)
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
     owned = models.DateTimeField(auto_now_add=True)
 
     owns = models.Manager()
 
     class Meta:
-        managed = False
-        db_table = 'OWN'
         ordering = ["owned"]
+        managed = True
 
 
 class InState(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, default=0)
 
     people_states = models.Manager()
 
+    class Meta:
+        managed = True
 
 class ForState(models.Model):
-    legal = models.ForeignKey(Legal, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    legal = models.ForeignKey(Legal, on_delete=models.CASCADE, default=0)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, default=0)
 
     legals_states = models.Manager()
 
+    class Meta:
+        managed = True
 #####################################END OF USER <-> LEGAL RELATIONSHIPS###############################

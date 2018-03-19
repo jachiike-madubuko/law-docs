@@ -1,6 +1,6 @@
 language: python
 python:
-  "3.5"
+  - "3.5"
   - "3.6"
 # - "2.6"
  # - "2.7"
@@ -9,8 +9,8 @@ python:
 
 
 env:
-  - DJANGO=1.11.10
-  - DJANGO_VERSION=1.11.10
+  - DJANGO=2.0.0
+  - DJANGO_VERSION=2.0.0
   
 
 before_install:
@@ -19,7 +19,7 @@ before_install:
 
 install:
  # - pip install .
-  - pip install -q Django==1.11.10 --quiet
+  - pip install -q Django==2.0.0 --quiet
   - pip install -r requirements.txt
   #- pip install -U pytest
 #  - python setup.py -q install
