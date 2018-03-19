@@ -1,0 +1,55 @@
+
+
+from attorney.models import Lawyer, Client, Form, Document, Piece, Person, Legal, Firm, Employee, State,View, Buy, Use, Own, InState, ForState
+from django.utils import timezone
+import datetime
+
+a = Lawyer(firstname="Bobo", lastname="Jojo", email="bobo.jojo@hoho.co", password="1234", created=timezone.now(), tags=('trusted', 'friendly', 'veteran'), lastlogin = timezone.now(), ipaddress ='98.127.248.2', lawyerdata= [{'dd' : 'money'}])
+b = Client(firstname="Bebe", lastname="Jaja", email="bebe.jaja@hoho.co", password="4321", created=timezone.now(), tags=('elderly', 'assets', 'retired'), lastlogin = timezone.now(), ipaddress ='98.127.248.2', clientdata= [{'dd' : 'money'}])
+c = Firm(name="Lawyer'r'us")
+d = Employee(employed=a, employer=c, date_joined=timezone.now())
+a.save()
+b.save()
+c.save()
+d.employer_id='1'
+d.employed_id='3'
+d.save()
+e = Document(name="the Doc", type='will', created = timezone.now(), updated = timezone.now(), tags =("quick", "easy to use"))
+
+f = Piece(name="DocP", type='will', created = timezone.now(), updated = timezone.now(), tags=("flexible",  "dynamic"))
+g = Form(name="A form", type='will', tags =("too long", "confusing"), created = timezone.now(), updated =timezone.now())
+e.save()
+f.save()
+g.save()
+
+h = State(state='AK')
+h.save()
+
+j = View(person=a,legal=f,duration=datetime.timedelta(days=20,hours=10),numberOviews=2,lastviewed =timezone.now())
+k = Use(person=a,legal = g, duration = datetime.timedelta(days=26, hours=10), lastused = timezone.now())
+l = Buy(person=b,legal = g, duration = datetime.timedelta(days=6, hours=10), purchased = timezone.now())
+m = Own(person=b,legal = g, owned = timezone.now())
+j.save()
+k.save()
+l.save()
+m.save()
+
+n = State(state='CA')
+o = State(state='MT')
+p = State(state='MI')
+n.save()
+o.save()
+p.save()
+
+q = InState(person=a, state = n)
+r = ForState(legal=f, state = n )
+s = ForState(legal=g, state = o)
+t = ForState(legal=e, state = p )
+u = InState(person=b, state = o )
+v = InState(person=a, state = p )
+.save()
+r.save()
+s.save()
+t.save()
+u.save()
+v.save()

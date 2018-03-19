@@ -63,8 +63,8 @@ class Firm(models.Model):
         return self.name
 
 class Employee(models.Model):
-    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='lawyer_employed', default=0)
-    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employ_firm', default=0)
+    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employed_lawyer', default=0)
+    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employing_firm', default=0)
     date_joined = models.DateField(auto_now_add=True)
 
     employees = models.Manager()
