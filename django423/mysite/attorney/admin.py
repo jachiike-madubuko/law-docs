@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import State, Lawyer, Client, Document, Piece, View, Use, Buy, Own
+from .models import State, Lawyer, Client, Document, Piece, View, Use, Buy, Own, Firm
 
 admin.site.register(State)
 admin.site.register(Lawyer)
