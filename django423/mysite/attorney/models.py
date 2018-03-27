@@ -11,17 +11,17 @@ Run python django423/mysite/manage.py migrate --run-syncdb to apply those change
 """
 ###########################################START OF USER ROLES##########################################
 class Person(models.Model):
-    personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True)
-    firstname = models.CharField(db_column='firstName', max_length=128)
-    lastname = models.CharField(db_column='lastName', max_length=128)
+    personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True, default=1)
+    firstname = models.CharField(db_column='firstName', max_length=50)
+    lastname = models.CharField(db_column='lastName', max_length=50)
     email = models.EmailField(db_column='emailAddress', unique=True)
     password = models.CharField(db_column='password', max_length=20)
+    DOB = models.DateField(db_column='dob', null=True)
     created = models.DateTimeField(db_column='created', auto_now_add=True, null=True)
     lastlogin = models.DateTimeField(db_column='lastLogin')
     ipaddress = models.GenericIPAddressField(db_column='IPAddress', unpack_ipv4=True)
-    birthyear = models.IntegerField(db_column='birthYear', blank=True, null=True)
-    deathyear = models.IntegerField(db_column='deathYear', blank=True, null=True)
-    tags = ArrayField(models.CharField(max_length=200), blank=True)
+    tags = ArrayField(models.CharField(max_length=200), null=True)
+
 
     people = models.Manager()
 
@@ -40,20 +40,20 @@ class Person(models.Model):
 
 
 class Client(Person):
-    clientdata = JSONField()  # used for merge templates
+    clientdata = JSONField(null=True)  # used for merge templates
 
     class Meta:
         managed = True
 
 class Lawyer(Person):
-    lawyerdata = JSONField()
+    lawyerdata = JSONField(null=True)
 
     class Meta:
         managed = True
 
 class Firm(models.Model):
-    firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True)
-    name = models.CharField(max_length=128)
+    firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True, default=1)
+    name = models.CharField(max_length=50)
     employee = models.ManyToManyField(Person, through='Employee', related_name='lawyers_in_firm')
 
     class Meta:
@@ -63,8 +63,8 @@ class Firm(models.Model):
         return self.name
 
 class Employee(models.Model):
-    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employed_lawyer', default=0)
-    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employing_firm', default=0)
+    employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employed_lawyer', default=1)
+    employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employing_firm', default=1)
     date_joined = models.DateField(auto_now_add=True)
 
     employees = models.Manager()
@@ -77,12 +77,12 @@ class Employee(models.Model):
 
 ########################################START OF LEGALS#################################################
 class Legal(models.Model):
-    legalID = models.AutoField(db_column='legalID', primary_key=True, max_length=9, unique=True)
-    name = models.CharField(db_column='Name', max_length=512)
+    legalID = models.AutoField(db_column='legalID', primary_key=True, max_length=9, unique=True, default=1)
+    name = models.CharField(db_column='Name', max_length=50)
     type = models.CharField(db_column='Type', max_length=45, blank=True, null=True)
     created = models.DateTimeField(db_column='Created', auto_now_add=True, null=True)
     updated = models.DateTimeField(db_column='LastUpdated', auto_now=True, null=True)
-    tags = ArrayField(models.CharField(max_length=200), blank=True)
+    tags = ArrayField(models.CharField(max_length=200), blank=True, null=True)
 
     # add in many to many relationship
     viewedby = models.ManyToManyField(Person, through='View', related_name='someone_viewed')
@@ -181,6 +181,7 @@ class State(models.Model):
     states = models.Manager()
 
     state = models.CharField(
+        unique=True,
         max_length=2,
         choices=STATE_CHOICES)
 
@@ -198,9 +199,9 @@ class State(models.Model):
 
 ######################################START OF USER <-> LEGAL RELATIONSHIPS###############################
 class View(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
-    duration = models.DurationField()
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
+    duration = models.DurationField(null=True)
     lastviewed = models.DateTimeField(auto_now=True, auto_now_add=False)
     numberOviews = models.IntegerField()
 
@@ -212,9 +213,9 @@ class View(models.Model):
 
 
 class Use(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
-    duration = models.DurationField()
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
+    duration = models.DurationField(null=True)
     lastused = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     uses = models.Manager()
@@ -226,9 +227,9 @@ class Use(models.Model):
 
 
 class Buy(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
-    duration = models.DurationField()
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
+    duration = models.DurationField(null=True)
     purchased = models.DateTimeField(auto_now_add=True)
 
     buys = models.Manager()
@@ -240,8 +241,8 @@ class Buy(models.Model):
 
 
 class Own(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=0)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=0)
+    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
     owned = models.DateTimeField(auto_now_add=True)
 
     owns = models.Manager()
@@ -252,8 +253,8 @@ class Own(models.Model):
 
 
 class InState(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=0)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, default=0)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=1)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, default=1)
 
     people_states = models.Manager()
 
@@ -261,8 +262,8 @@ class InState(models.Model):
         managed = True
 
 class ForState(models.Model):
-    legal = models.ForeignKey(Legal, on_delete=models.CASCADE, default=0)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, default=0)
+    legal = models.ForeignKey(Legal, on_delete=models.CASCADE, default=1)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, default=1)
 
     legals_states = models.Manager()
 
