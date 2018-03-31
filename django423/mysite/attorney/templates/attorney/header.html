@@ -17,26 +17,34 @@
 	<script src="{% static 'js/doc.js' %}"></script>
 	<script>
         $(function () {
+            var delete_button = $("#del");
+            var edit_box = $("editor");
+            var logic_edit_box = $(".logicedit");
+            var live = $("#live");
+            var piece_adder = $("#addbox");
+            var merge_templates = $("#merge");
+            var final_page = $("#final");
+            var question_box = $("#qbox");
+            var movable_pieces = $(".ui-state-defaults");
+            var sortable = $("#sortable");
    	    $(window).scrollTop(0);
-        $("#del").hide();
-        $("#editor").hide();  //keeps the editor out of site until a DocPiece(DP) is clicked
-        $("#ed").hide();
-        $("#final").hide();
-        $("#qbox").hide();
-        $("#addbox").hide();
-		$("#merge").hide();
+            delete_button.hide();
+            edit_box.hide();  //keeps the editor out of site until a DocPiece(DP) is clicked
+            question_box.hide();
+            merge_templates.hide();
+
 		$("#qList li").css({"float": "left", "box-shadow": "1px 1px 50px #ddd",
 	"border-radius": "10px", "padding": "10px", "margin": "10px"});
 
         // will eventually be a django front live editor.
         //this defines the characteristic of the draggable blocks
-        $(".ui-state-defaults").not(".addbut", ".t").draggable({
+            movable_pieces.not(".addbut", ".t").draggable({
             axis: "y", containment: "#containment-wrapper", scroll: false, scrollSensitivity: 100
         });
 
         //this defines characteristics of the sort area
 		//TODO replace with https://jqueryui.com/accordion/#sortable
-        $("#sortable").sortable({
+            sortable.sortable({
             axis: "y",
             revert: false,
 			placeholder: "ui-state-highlight",
@@ -45,7 +53,7 @@
         $("ui-state-highlight").addClass("ui-state-defaults");
 
 
-       $("#sortable").disableSelection();
+            sortable.disableSelection();
 
        //TODO integrate below for merge fields
 		// $( "#draggable" ).draggable({
@@ -62,7 +70,7 @@
 		  modal: true,
 		  buttons: {
 		    "Merge Fields": function() {        //clicking the done button sends current input to the DocPiece
-				$("#merge").dialog("open");
+                merge_templates.dialog("open");
 			},
 			"Done": function() {        //clicking the done button sends current input to the DocPiece
 				var editted = $("#swag").val();
@@ -70,16 +78,16 @@
 				$(".small").removeClass("small");
 				dialog.dialog( "close" );
 
-			$("#merge").dialog( "close" );
+                merge_templates.dialog("close");
 			},
 			Cancel: function() {
 			  dialog.dialog( "close" );
-				$("#merge").dialog( "close" );
+                merge_templates.dialog("close");
 			}
 		  }
     });
 
-	$("#merge").dialog({
+            merge_templates.dialog({
 		modal: false,
 		autoOpen:false,
 		width: 185,
@@ -114,7 +122,7 @@ $(".addbut").on("click", function(){ //TODO add a dialog box that asks which DP 
 	$(this).addClass("A");
 
 	// http://jqueryui.com/accordion/#sortable
-	$( "#addbox" ).dialog({
+    piece_adder.dialog({
       autoOpen: false,
       position: {
         my: "left center",
@@ -134,11 +142,11 @@ $(".addbut").on("click", function(){ //TODO add a dialog box that asks which DP 
       },
      buttons: {
 			Cancel: function() {
-			  $("#addbox").dialog( "close" );
+                piece_adder.dialog("close");
 			}
 		  }
     });
-		$("#addbox").dialog("open");
+    piece_adder.dialog("open");
 	//add dialog to determine which docPiece and then create newbie
         });
 $("#newDP").on('click', function(){
@@ -147,7 +155,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+    piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
 	$("#witS").on('click', function(){
@@ -156,7 +164,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
 
@@ -165,7 +173,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
 
@@ -174,7 +182,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
 
@@ -184,7 +192,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
 	$("#SpouseP").on('click', function()	{
@@ -194,7 +202,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
  	$("#ChildrenP").on('click', function(){
@@ -203,7 +211,7 @@ $("#newDP").on('click', function(){
 	    $(".A").parent().parent().after(newbie);
 	    $('.legaLogi').hide();
         $( "#sortable" ).change(); //updates the doc and adds buttons to new DPs
-        $("#addbox").dialog("close");
+        piece_adder.dialog("close");
 	     $(".A").removeClass("A");
     });
   	$("#PetL").on('click', function(){
@@ -241,11 +249,11 @@ $("#newDP").on('click', function(){
 //new DPs will have classes attached to <p></p> where the buttons will be placed.
 //the classes are used a targets to place the buttons then are removed
 // /your current y position on the page
-$('#containment-wrapper').animate( { scrollTop: '+=200' }, 1000,);
+        $('#containment-wrapper').animate({scrollTop: '+=200'}, 1000);
 
 $("#sortable .medium").append($(".delbut").eq(0).clone(true));
-$("#sortable .medium").append($(".edbut").eq(0).clone(true));
-$("#sortable .medium .edbut").css({"float": "right"});
+        $("#sortable .medium").append(logic_edit_box.eq(0).clone(true));
+        $("#sortable .medium .logicedit").css({"float": "right"});
 $(".medium").removeClass("medium");
 $("#sortable .hard").append($(".addbut").eq(0).clone(true));
 $(".hard").removeClass("hard");
@@ -264,16 +272,16 @@ $("#testQ").on('click', function () {
 
  });
 
-   	   		 $( ".edbut" ).click(function(e) {
+            logic_edit_box.click(function (e) {
    	     $(this).addClass("Q");
    	     //$("#qbox p ol").empty();
 
-   	     $("#qbox").html($('#qList').html());
-   	      $( "#qbox" ).dialog( "open" );
+                question_box.html($('#qList').html());
+                question_box.dialog("open");
           $(this).removeClass("Q");
    	     });
 
-   	     $( "#qbox" ).dialog({
+            question_box.dialog({
       autoOpen: false,
 			 //TODO display title DocPiece Library
       position: {
@@ -297,10 +305,10 @@ $("#testQ").on('click', function () {
 				//$(".small").html( editted);
                 // class::small is used to keep track of which DocPiece is being editted
 				//$(".small").removeClass("small");
-				$("#qbox").dialog( "close" );
+                question_box.dialog("close");
 			},
 			Cancel: function() {
-			  $("#qbox").dialog( "close" );
+                question_box.dialog("close");
 
 			}
 		  }
@@ -338,10 +346,10 @@ $("#testQ").on('click', function () {
 
             //find out how to convert sender to a text file
 			//simulate file being dropped into fileststack picker
-        $("#live").hide("fade", 100, reveal);
+        live.hide("fade", 100, reveal);
         function reveal() {
             setTimeout(function () {
-                $("#final").show("fade", 2000);
+                final_page.show("fade", 2000);
 
             }, 10);
         }
@@ -367,9 +375,9 @@ $("#testQ").on('click', function () {
       complete: function() {
         progressLabel.text( "Complete!" );
 
-      $("#progressbar").before(sendy);
+          progressbar.before(sendy);
       $("#sender").hide();
-      $("#progressbar").hide("fade",500);
+          progressbar.hide("fade", 500);
      	$("#sender").show("fade",1000);
       }
     });
@@ -440,7 +448,7 @@ $("#testQ").on('click', function () {
 			 		</ul>
 			</div>
 		</div>
-		<div id="final" >
+        <div id="final" style="display:none">
         <h1>Final Document</h1>
 			<br><br><br>
                 <div id="progressbar"><div class="progress-label">Loading...</div></div>
@@ -455,7 +463,7 @@ $("#testQ").on('click', function () {
 		  			<br>
 				</div>
 		  	</div>
-				<div id="merge" >
+            <div id="merge" style="display:none">
                     <h1> Merge Fields</h1>  <!-- Insert Javascipt for json -->
 					<div class="appdrop"><h3 >Applicant</h3></div>
 					<p class="app">Prefix </p>
@@ -499,19 +507,30 @@ $("#testQ").on('click', function () {
 
 		  <br>
 		  <div id="live" class="col-sm-10" >
-			  <div id="addbox" >
+              <div id="addbox" style="display:none">
 					<legend>Select a DocPiece: </legend>
-					  <button id="newDP">New DocPiece</button>
-				      <button id="secH">Section Header</button>
-					  <button id="WillP">Last Will Paragraph</button>
-					  <button id="SpouseP">Spouse Paragraph</button>
-					  <button id="ChildrenP">Children Paragraph</button>
-				      <button id="PetCareL">Pet Care Paragraph</button>
-				  	  <button id="PetL">Pet Information</button>
-					  <button id="CareP">Caretaker Paragraph</button>
-				      <button id="testS">Testator Signature</button>
-					  <button id="witS">Witness Signature</button>
+                  <ul class="nav nav-list">
+                      <form>
+                          <label></label>
+                          <li><input class="search-query span10" type="text" name="suggestion" value=""
+                                     id="suggestion"/></li>
+                      </form>
+                  </ul>
+                  <div id="p_list">
+                  </div>
 			  </div>
+              <script>
+                  $(function () {
+                      $('#suggestion').keyup(function () {
+                          var query;
+                          query = $(this).val();
+                          $.get('suggest_piece/', {suggestion: query}, function (data) {
+                              $('#p_list').html(data);
+                              alert("Load was performed.");
+                          });
+                      });
+                  });
+              </script>
 			  <div  id="dl"><h1>DocLogic</h1>
 
 			   <div class='container-fluid' id="question-wrapper" >
@@ -543,8 +562,12 @@ $("#testQ").on('click', function () {
                     		<button class="addbut"></button>
                     	</p>
                     </li>
-                    <li id='del' class='ui-state-defaults'> <button class ="delbut"></button></li>
-					<li id='ed' class='ui-state-defaults'> <button class ="edbut"> </button></li>
+                    <li id='del' class='ui-state-defaults' style="display:none">
+                        <button class="delbut"></button>
+                    </li>
+                    <li id='ed' class='ui-state-defaults' style="display:none">
+                        <button class="logicedit"></button>
+                    </li>
 
 				</div>
 			</div>

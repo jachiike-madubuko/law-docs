@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from .utils import *
+
 
 def index(request):
     """
@@ -12,14 +14,17 @@ def index(request):
     return render(request, 'attorney/home.html')
 
 
-
-
-
-
-
-
-
-
-
 def contact(request):
     return render(request, 'attorney/basic.html',{'content':['If you would like to contact us, please email the team at.','odeajustin@gmail.com, jachi36@gmail.com, and waylon@msulaunchpad.org']})
+
+
+def suggest_piece(request):
+    piece_list = []
+    starts_with = ''
+    if request.method == 'GET':
+        starts_with = request.GET['suggestion']
+
+        piece_list = get_pieces_list(8, starts_with)
+    # create html, that lists the docPieces as buttons
+    # look up render functions with JSON instead of html
+    return render(request, 'attorney/header.html', {'piece_list': piece_list})
