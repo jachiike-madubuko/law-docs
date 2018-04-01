@@ -524,9 +524,22 @@ $("#testQ").on('click', function () {
                       $('#suggestion').keyup(function () {
                           var query;
                           query = $(this).val();
-                          $.get('suggest_piece/', {suggestion: query}, function (data) {
-                              $('#p_list').html(data);
-                              alert("Load was performed.");
+
+                          $.getJSON('suggest_piece/', {suggestion: query}).done(function (data) {
+                              var items = [];
+                              $.each(data.items, function (i, item) {
+
+                                  alert(item.name);
+                                  //  });
+                                  // $.each( data, function( key, val ) {
+                                  //      alert(key, val);
+                                  //      items.push( "<p id='" + key + "'>" + val + "</p>" );
+                                  //  });
+                                  //  $( "<ul/>", {
+                                  //      "class": "my-new-list",
+                                  //   html: items.join( "" )
+                                  //  }).appendTo( "#p_list" );
+                              });
                           });
                       });
                   });

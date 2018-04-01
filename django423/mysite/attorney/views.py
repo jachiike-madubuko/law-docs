@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from .utils import *
@@ -24,7 +25,7 @@ def suggest_piece(request):
     if request.method == 'GET':
         starts_with = request.GET['suggestion']
 
-        piece_list = get_pieces_list(8, starts_with)
+        piece_list = list(get_pieces_list(8, starts_with))
     # create html, that lists the docPieces as buttons
     # look up render functions with JSON instead of html
-    return render(request, 'attorney/header.html', {'piece_list': piece_list})
+    return JsonResponse(piece_list, safe=False)

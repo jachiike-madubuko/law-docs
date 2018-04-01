@@ -269,4 +269,5 @@ class ForState(models.Model):
 
     class Meta:
         managed = True
+
 #####################################END OF USER <-> LEGAL RELATIONSHIPS###############################
