@@ -271,3 +271,6 @@ class ForState(models.Model):
         managed = True
 
 #####################################END OF USER <-> LEGAL RELATIONSHIPS###############################
+
+
+# TODO enter the code that creates OWN, VIEW, and BUY models

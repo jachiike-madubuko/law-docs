@@ -524,12 +524,17 @@ $("#testQ").on('click', function () {
                       $('#suggestion').keyup(function () {
                           var query;
                           query = $(this).val();
-
-                          $.getJSON('suggest_piece/', {suggestion: query}).done(function (data) {
-                              var items = [];
-                              $.each(data.items, function (i, item) {
-
-                                  alert(item.name);
+                          $("#p_list").empty();
+                          $.getJSON('suggest_piece/', {suggestion: query}, function (result) {
+                              $.each(result, function (i, field) {
+                                  $("#p_list").append("<button>" + field['name'] + "</button>");
+                              });
+                          });
+                      });
+                  });
+                  // $.each(data.items, function (i, item) {
+                  //
+                  //     alert(item.name);
                                   //  });
                                   // $.each( data, function( key, val ) {
                                   //      alert(key, val);
@@ -539,10 +544,6 @@ $("#testQ").on('click', function () {
                                   //      "class": "my-new-list",
                                   //   html: items.join( "" )
                                   //  }).appendTo( "#p_list" );
-                              });
-                          });
-                      });
-                  });
               </script>
 			  <div  id="dl"><h1>DocLogic</h1>
 
