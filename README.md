@@ -50,3 +50,8 @@ Thank you for updating the repo!
 
 ## [User Guide](https://docs.google.com/document/d/1QC3GKInvcPRJdnacKKn6T245lnAdAL6Ad9w-RK3h-aM/edit?usp=sharing)
 
+
+## Acknowledgements 
+
+Matthew Sessa for letting us use his server to host our website. We would also like to thank him for his help figuring out Qunit testing.  
+
