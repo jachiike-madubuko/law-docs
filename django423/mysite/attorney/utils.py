@@ -15,6 +15,7 @@ to find the relationship involving a certain person
 from attorney.models import Document, Piece, InState, ForState
 
 
+
 def get_pieces_list(max_results=0, starts_with=''):
     piece_list = []
     # a list of all the own relationships with the user
@@ -24,7 +25,7 @@ def get_pieces_list(max_results=0, starts_with=''):
     if starts_with:
         # searches users owned legals for ones that start with...
         # piece_list = my_pieces.filter(legal__name__istartswith=starts_with)
-        piece_list = Piece.legals.filter(name__istartswith=starts_with).values('name', 'type', 'piecetype')
+        piece_list = Piece.legals.filter(name__istartswith=starts_with).values('legalID', 'name', 'type', 'piecetype')
         print(piece_list)
 
     if piece_list and max_results > 0:
@@ -157,3 +158,8 @@ def by_user(user, lawyer=False, client=False, document=False):
     #
     # if (client):
     #     find_state_by_ppl.filter()
+
+
+def create_document(f_stack_url):
+    newDoc = Document(filestackURL=f_stack_url)
+    newDoc.save()

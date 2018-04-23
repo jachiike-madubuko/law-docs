@@ -1,6 +1,6 @@
 cycler==0.10.0
 matplotlib==2.0.2
-numpy==1.13.1
+numpy==1.13.3
 olefile==0.44
 pandas==0.20.3
 Pillow==4.2.1
@@ -27,3 +27,4 @@ django-front
 pytest==3.4.0
 pytest-django==2.8.0
 psycopg2
+django-tinymce4-lite

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.postgres.fields import JSONField, ArrayField
 from django.db import models
+from tinymce.models import HTMLField
 
 # TODO added JSON encoder/decoder
 """
@@ -102,6 +103,8 @@ class Legal(models.Model):
 
 class Document(Legal):
     filestackURL = models.URLField(db_column='fileStackURL', blank=True, null=True, unique=True)
+    price = models.FloatField(db_column='price', blank=True)
+
 
     class Meta:
         managed = True
@@ -114,7 +117,7 @@ class Form(Legal):
         managed = True
 
 class Piece(Legal):
-    content = JSONField(db_column='content', blank=True, null=True)
+    content = HTMLField('Content')
     # models.ImageField()
     piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
 

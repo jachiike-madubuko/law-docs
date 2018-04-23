@@ -523,12 +523,32 @@ $("#testQ").on('click', function () {
                   $(function () {
                       $('#suggestion').keyup(function () {
                           var query;
+
                           query = $(this).val();
                           $("#p_list").empty();
                           $.getJSON('suggest_piece/', {suggestion: query}, function (result) {
                               $.each(result, function (i, field) {
-                                  $("#p_list").append("<button>" + field['name'] + "</button>");
+                                  //$("#p_list").append("<button>" + field['name'] + "</button>");
+                                  //var foo = function(){
+                                  var button = document.createElement('button');
+                                  button.innerHTML = field['name'];
+                                  button.onclick = function () {
+                                      var newbie
+                                          = "<li class='ui-state-defaults'><p class = 'medium'></p><p class = 'italics ui-state-default'>" + field['piecetype'] + "</p><p class = 'hard'></p><ol class = 'legaLogi'></ol></li>";
+
+                                      $(".A").parent().parent().after(newbie);
+                                      $('.legaLogi').hide();
+                                      $("#sortable").change(); //updates the doc and adds buttons to new DPs
+                                      $("#addbox").dialog("close");
+                                      $(".A").removeClass("A");
+                                      return false;
+                                  };
+                                  // where do    we want to have the button to appear?
+                                  // you can append it to another element just by doing something like
+                                  // document.getElementById('foobutton').appendChild(button);
+                                  $("#p_list").append(button);
                               });
+                              // });
                           });
                       });
                   });
