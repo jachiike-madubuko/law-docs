@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^contact/', views.contact, name='contact'),
     url(r'^suggest_piece/', views.suggest_piece, name='suggest_piece'),
-    url(r'^final_doc/', views.filestack_doc, name='filestack_doc'),
+    url(r'^final_doc/', views.final_doc, name='final_doc'),
     url(r'^tinymce/', include('tinymce.urls')),
     ]

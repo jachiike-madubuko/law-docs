@@ -12,7 +12,7 @@ filter(legal__name__istartswith='d')
 to find the relationship involving a certain person
 
 '''
-from attorney.models import Document, Piece, InState, ForState
+from attorney.models import Document, Piece, InState, ForState, Own
 
 
 
@@ -26,7 +26,6 @@ def get_pieces_list(max_results=0, starts_with=''):
         # searches users owned legals for ones that start with...
         # piece_list = my_pieces.filter(legal__name__istartswith=starts_with)
         piece_list = Piece.legals.filter(name__istartswith=starts_with).values('legalID', 'name', 'type', 'piecetype')
-        print(piece_list)
 
     if piece_list and max_results > 0:
         if piece_list.count() > max_results:
@@ -58,15 +57,13 @@ def get_my_pieces_list(userID=0, max_results=0, starts_with=''):
     piece_list = []
     # a list of all the own relationships with the user
     # add when sessions established
-    # my_pieces = Own.owns.filter(person__personID=userID)
+    my_pieces = Own.owns.filter(person__personID=userID)
     # my_pieces = Piece.legals.all()
     # x[0]['personID'] yeilds the ID
 
     if starts_with:
         # searches users owned legals for ones that start with...
-        # piece_list = my_pieces.filter(legal__name__istartswith=starts_with)
-        piece_list = Piece.legals.filter(name__istartswith=starts_with).values('name', 'type', 'piecetype')
-        print(piece_list)
+        piece_list = my_pieces.filter(legal__name__istartswith=starts_with).values('legal__name', 'legal__content')
 
     if piece_list and max_results > 0:
         if piece_list.count() > max_results:
@@ -161,5 +158,7 @@ def by_user(user, lawyer=False, client=False, document=False):
 
 
 def create_document(f_stack_url):
+    print('creating document')
     newDoc = Document(filestackURL=f_stack_url)
     newDoc.save()
+    print('saved')

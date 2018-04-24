@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
 	<script src="{% static 'js/doc.js' %}"></script>
 	<script>
         $(function () {
@@ -27,6 +29,20 @@
             var question_box = $("#qbox");
             var movable_pieces = $(".ui-state-defaults");
             var sortable = $("#sortable");
+            tinymce.init({
+                selector: 'textarea',
+                height: 500,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image print preview anchor textcolor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tinymce.com/css/codepen.min.css']
+            });
    	    $(window).scrollTop(0);
             delete_button.hide();
             edit_box.hide();  //keeps the editor out of site until a DocPiece(DP) is clicked
@@ -43,19 +59,17 @@
         });
 
         //this defines characteristics of the sort area
-		//TODO replace with https://jqueryui.com/accordion/#sortable
+            $("ui-state-highlight").addClass("ui-state-default");
             sortable.sortable({
             axis: "y",
             revert: false,
 			placeholder: "ui-state-highlight",
+                forcePlaceholderSize: true,
         });
-        //TODO fix with https://jqueryui.com/sortable/#placeholder
-        $("ui-state-highlight").addClass("ui-state-defaults");
+
 
 
             sortable.disableSelection();
-
-       //TODO integrate below for merge fields
 		// $( "#draggable" ).draggable({
     //   connectToSortable: "#sortable",
     //   helper: "clone",
@@ -73,7 +87,7 @@
                 merge_templates.dialog("open");
 			},
 			"Done": function() {        //clicking the done button sends current input to the DocPiece
-				var editted = $("#swag").val();
+                var editted = tinyMCE.activeEditor.getContent();
 				$(".small").html( editted);      //class::small is used to keep track of which DocPiece is being editted
 				$(".small").removeClass("small");
 				dialog.dialog( "close" );
@@ -101,10 +115,13 @@
 
   // Initializes all textareas with the tinymce class. #make test here 
    	 $( ".italics" ).dblclick( function() { //class::italics given to the DP to make editable
+         alert("d");
    	     $(this).addClass("small");         //class::small tracking which DP is being updated
-   	     var  old = $(".small").html();
-         $("#swag").val(old);
-      dialog.dialog( "open" );
+         var old = $(".small").html();
+         alert($("textarea:hidden").text());
+         tinyMCE.activeEditor.setContent(old);
+         dialog.dialog("open");
+
     });
 
    	 //functionality of delete button
@@ -115,7 +132,7 @@ $("#sortable li").on('click', '.delbut', function(event) {
 //decide the kind of DP
 
 //functionality for the add button. Will be generalized for all DPs
-$(".addbut").on("click", function(){ //TODO add a dialog box that asks which DP is being added
+            $(".addbut").on("click", function () {
     //newbie will be changed to be content based on the type of DP selected by user
 	//TODO add accordian effect
 
@@ -267,7 +284,8 @@ $("#testQ").on('click', function () {
    	     $(this).addClass("small");
    	     var  old = $(".small").html();
          $("#swag").val(old);
-      dialog.dialog( "open" );
+          tinyMCE.activeEditor.setContent(old);
+          dialog.dialog("open");
     });
 
  });
@@ -283,7 +301,6 @@ $("#testQ").on('click', function () {
 
             question_box.dialog({
       autoOpen: false,
-			 //TODO display title DocPiece Library
       position: {
         my: "left center",
         at: "right center",
@@ -343,6 +360,8 @@ $("#testQ").on('click', function () {
 
         });
             var sendy = $("#sender");
+        console.log(sendy);
+
 
             //find out how to convert sender to a text file
 			//simulate file being dropped into fileststack picker
@@ -393,6 +412,19 @@ $("#testQ").on('click', function () {
     }
 
     setTimeout( progress, 2000 );
+        var client = filestack.init('AfEkWPbqOQYqKQt291D7dz');
+        var myBlob = new Blob([sendy.html()], {type: "text/html"});
+        client.upload(myBlob, {intelligent: true, retry: 10}, {filename: 'document.txt'}).then(function (result) {
+            //currently not working
+            var fileUrl = result.filesUploaded[0].url;
+            alert(fileUrl);
+        });
+        $.getJSON('final_doc/', {doc: sendy.html()}, function (result) {
+            console.log(result);
+            alert('ajax alert');
+            alert(result['url']);
+            //write print statement in views to check sendy content
+        });
   });
 
 //		$('#fpButton').click(function() {
@@ -452,14 +484,15 @@ $("#testQ").on('click', function () {
         <h1>Final Document</h1>
 			<br><br><br>
                 <div id="progressbar"><div class="progress-label">Loading...</div></div>
+            <div id="preview-Id" style="width:500px;height:500px;"></div>
 
     </div>
 		<div class="row">
 		  	<div class="col-sm-2">
-				<div id = "editor">
+                <div id="editor" hidden>
 			 		<h1> Edit the DocPiece here: </h1>
-			  		<textarea id="swag" placeholder="Balabala" rows= "15",
-		  				cols= "50", autofocus>Edit your text block below.</textarea>
+                    <textarea id="swag" placeholder="Balabala" rows="10" ,
+                              cols="30" , autofocus>Edit your text block below.</textarea>
 		  			<br>
 				</div>
 		  	</div>
@@ -526,6 +559,7 @@ $("#testQ").on('click', function () {
 
                           query = $(this).val();
                           $("#p_list").empty();
+                          //docpiece search
                           $.getJSON('suggest_piece/', {suggestion: query}, function (result) {
                               $.each(result, function (i, field) {
                                   //$("#p_list").append("<button>" + field['name'] + "</button>");
@@ -539,6 +573,8 @@ $("#testQ").on('click', function () {
                                       $(".A").parent().parent().after(newbie);
                                       $('.legaLogi').hide();
                                       $("#sortable").change(); //updates the doc and adds buttons to new DPs
+                                      $("#suggestion").val('');
+
                                       $("#addbox").dialog("close");
                                       $(".A").removeClass("A");
                                       return false;

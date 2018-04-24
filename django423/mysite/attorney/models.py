@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.contrib.postgres.fields import JSONField, ArrayField
 from django.db import models
-from tinymce.models import HTMLField
 
 # TODO added JSON encoder/decoder
 """
@@ -12,7 +11,7 @@ Run python django423/mysite/manage.py migrate --run-syncdb to apply those change
 """
 ###########################################START OF USER ROLES##########################################
 class Person(models.Model):
-    personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True, default=1)
+    personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True)
     firstname = models.CharField(db_column='firstName', max_length=50)
     lastname = models.CharField(db_column='lastName', max_length=50)
     email = models.EmailField(db_column='emailAddress', unique=True)
@@ -53,7 +52,7 @@ class Lawyer(Person):
         managed = True
 
 class Firm(models.Model):
-    firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True, default=1)
+    firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True)
     name = models.CharField(max_length=50)
     employee = models.ManyToManyField(Person, through='Employee', related_name='lawyers_in_firm')
 
@@ -78,7 +77,7 @@ class Employee(models.Model):
 
 ########################################START OF LEGALS#################################################
 class Legal(models.Model):
-    legalID = models.AutoField(db_column='legalID', primary_key=True, max_length=9, unique=True, default=1)
+    legalID = models.AutoField(db_column='legalID', primary_key=True, max_length=9, unique=True)
     name = models.CharField(db_column='Name', max_length=50)
     type = models.CharField(db_column='Type', max_length=45, blank=True, null=True)
     created = models.DateTimeField(db_column='Created', auto_now_add=True, null=True)
@@ -103,7 +102,7 @@ class Legal(models.Model):
 
 class Document(Legal):
     filestackURL = models.URLField(db_column='fileStackURL', blank=True, null=True, unique=True)
-    price = models.FloatField(db_column='price', blank=True)
+    price = models.FloatField(db_column='price', blank=True, default=19.99)
 
 
     class Meta:
@@ -117,7 +116,8 @@ class Form(Legal):
         managed = True
 
 class Piece(Legal):
-    content = HTMLField('Content')
+    content = models.CharField(db_column='content', max_length=500, blank=True, null=True)
+
     # models.ImageField()
     piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
 
@@ -201,12 +201,12 @@ class State(models.Model):
 ########################################END SEARCH TABLES#################################################
 
 ######################################START OF USER <-> LEGAL RELATIONSHIPS###############################
+# TODO simplify and create fake data for these relationships
 class View(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
-    duration = models.DurationField(null=True)
+    person = models.ForeignKey(Person, models.DO_NOTHING)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING)
     lastviewed = models.DateTimeField(auto_now=True, auto_now_add=False)
-    numberOviews = models.IntegerField()
+    numberOfviews = models.IntegerField()
 
     views = models.Manager()
 
@@ -216,8 +216,8 @@ class View(models.Model):
 
 
 class Use(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
+    person = models.ForeignKey(Person, models.DO_NOTHING)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING)
     duration = models.DurationField(null=True)
     lastused = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -230,9 +230,8 @@ class Use(models.Model):
 
 
 class Buy(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
-    duration = models.DurationField(null=True)
+    person = models.ForeignKey(Person, models.DO_NOTHING)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING)
     purchased = models.DateTimeField(auto_now_add=True)
 
     buys = models.Manager()
@@ -244,8 +243,8 @@ class Buy(models.Model):
 
 
 class Own(models.Model):
-    person = models.ForeignKey(Person, models.DO_NOTHING, default=1)
-    legal = models.ForeignKey(Legal, models.DO_NOTHING, default=1)
+    person = models.ForeignKey(Person, models.DO_NOTHING)
+    legal = models.ForeignKey(Legal, models.DO_NOTHING)
     owned = models.DateTimeField(auto_now_add=True)
 
     owns = models.Manager()
@@ -256,8 +255,8 @@ class Own(models.Model):
 
 
 class InState(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=1)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, default=1)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
 
     people_states = models.Manager()
 
@@ -265,8 +264,8 @@ class InState(models.Model):
         managed = True
 
 class ForState(models.Model):
-    legal = models.ForeignKey(Legal, on_delete=models.CASCADE, default=1)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, default=1)
+    legal = models.ForeignKey(Legal, on_delete=models.CASCADE)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
 
     legals_states = models.Manager()
 
@@ -276,4 +275,4 @@ class ForState(models.Model):
 #####################################END OF USER <-> LEGAL RELATIONSHIPS###############################
 
 
-# TODO enter the code that creates OWN, VIEW, and BUY models
+# TODO enter the code that creates OWN, VIEW, and BUY models as unique together with person and legal

@@ -33,24 +33,25 @@ def suggest_piece(request):
         starts_with = request.GET['suggestion']
 
         piece_list = list(get_pieces_list(8, starts_with))
-        print(piece_list)
     # create html, that lists the docPieces as buttons
     # look up render functions with JSON instead of html
     return JsonResponse(piece_list, safe=False)
 
 
-def filestack_doc(request):
+def final_doc(request):
+    print('entering final doc function')
     if request.method == 'GET':
-        doc = request.GET['doc']  # doc contains a list of the doc pieces in the order shown on the editor
-    print(doc)
+        doc = request.GET['doc']  # doc =  list of the sorted doc pieces
+        print("###############################")
+        print(doc)
+        print("###############################")
 
-    # pass concatentate doc pieces to the file_stack and convert to pdf
-
-    params = {'mimetype': 'application/html'}
-    new_filelink = client.upload(filepath=request.path, params=params)
-    print("NEW FILE")
-    print(new_filelink.url)
-
-    create_document(new_filelink.url)
-    # upload, create function in util that saves the url as a new document
-    # send the file views with watermark
+        # pass concatentate doc pieces to the file_stack and convert to pdf
+        # params = {'mimetype': 'application/html'}
+        # new_filelink = client.upload(filepath=request.path, params=params)
+        print("NEW FILE")
+        # print(new_filelink.url)
+        # create_document(new_filelink.url)
+        return JsonResponse({'url': request.path}, safe=False)
+        # upload, create function in util that saves the url as a new document
+        # send the file views with watermark
