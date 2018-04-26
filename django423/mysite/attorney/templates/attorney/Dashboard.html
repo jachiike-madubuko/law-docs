@@ -1,77 +1,93 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>LegalGen </title>
-		<meta charset="utf-8" />
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-		<link rel="stylesheet" href="../../../mysite/static/css/reset.css">
-		<link rel="stylesheet" href="/resources/demos/style.css">
-		<link rel="stylesheet" href="../../../mysite/static/css/Attorney.css">
-		<script>
-			$(function() {
-			$(".newDocument").on("click", function(){ //TODO load a new document
+<head>
+	<title>LegalGen </title>
+	<meta charset="utf-8"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://static.filestackapi.com/v3/filestack.js"></script>
+	<script>
+        $(function () {
+            $.getJSON('/my_dashboard', function (result) {
+                $.each(result, function (i, field) {
+                    var doc_prview = document.createElement('span');
+                    doc_prview.innerHTML = field['name'] + '<br>' + field['filestackURL'] + '<br>' + field['price'] + '<br><br>';
+                    // button.onclick = function () {
+                    //     var newbie
+                    //         = "<li class='ui-state-defaults'><p class = 'medium'></p><p class = 'italics ui-state-default'>" + field['piecetype'] + "</p><p class = 'hard'></p><ol class = 'legaLogi'></ol></li>";
+                    //
+                    //     $(".A").parent().parent().after(newbie);
+                    //     $('.legaLogi').hide();
+                    //     $("#sortable").change(); //updates the doc and adds buttons to new DPs
+                    //     $("#suggestion").val('');
+                    //
+                    //     $("#addbox").dialog("close");
+                    //     $(".A").removeClass("A");
+                    //     return false;
+                    // };
+
+                    $("#feature").append(doc_prview);
+                });
+                // });
+            });
+
+
+            $(".newDocument").on("click", function () { //TODO load a new document
+            });
         });
-		});
-		</script>
-	</head>
-	<body>
-		<div class= "navigation">
-			<img src= 'LegalGenLogoBlue.png' class="logo-img" alt="face">
-			<div class="links">
-			 	<ul class="nav nav-pills nav-stacked">
-					<li><a href='/blog/'>Pricing</a></li>
-					<li><a href='/contact/'>Partners</a></li>
-					<li><a href='/'>Get Started</a></li>						
-					<li><a href='/blog/'>Login</a></li>
-			 	</ul>
-			</div>
-		</div>d
-		<div id = "dashboardHeader">
-			<h1 class = "blueDoc">Name of Law Firm</h1>
-			<button class="newDocument"></button>
-		</div>
-		<div class = "DocCard">
-			<h2 class = "blueDoc">Title of Doc</h2>
-			<h4>num of questions</h4>
-			<h4 class = "options">num of questions</h4>
-		<div id = "feature">
-			<img src = 'LegalGenLogoBlue.png' alt = "face">
-			<h1><p>Get localized, easy to understand, legal documents in minutes.</p></h1>
-			<form>
- 				First name:<br>
-  				<input type = "text" name="email" value="Enter Your Email">
-  				<input type = "button" value="Sign-Up">
-			</form>
-			<h4>Get started today for free.</h4>
-		</div>
-		<div id = "explination">
-			<h1>How it works.</h1>
-			<br>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-		</div>
-	</body>
-	<footer>
-		<div class="socialLinks">
-			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
-		</div>
-		<div id = "Disclaimer">
-			<p>© LegalGen.com, Inc. All rights reserved. <br>
+	</script>
+</head>
+<body>
+<div class="navigation">
+	<img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="faces">
+	<div class="links">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href='/blog/'>Pricing</a></li>
+			<li><a href='/contact/'>Partners</a></li>
+			<li><a href='/'>Get Started</a></li>
+			<li><a href='/blog/'>Login</a></li>
+		</ul>
+	</div>
+</div>
+d
+<div id="dashboardHeader">
+	<h1 class="blueDoc">Name of Law Firm</h1>
+	<button class="newDocument"></button>
+</div>
+<div class="DocCard">
+	<h2 class="blueDoc">Title of Doc</h2>
+	<h4>num of questions</h4>
+	<h4 class="options">num of questions</h4>
+	<div id="feature">
+		<img src="{% static 'img/LegalGenLogoBlue.png' %}" alt="face">
+		<h1><p>Get localized, easy to understand, legal documents in minutes.</p></h1>
+		<h4>Get started today for free.</h4>
+	</div>
+	<div id="stats">
+		<h1>Plug in Stats and Charts</h1>
+		<br>
+	</div>
+</div>
+</body>
+<footer>
+	<div class="socialLinks">
+		<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#"
+																								 target="blank">Twitter</a>
+			| <a href="#" target="blank">Google+</a></p>
+	</div>
+	<div id="Disclaimer">
+		<p>© LegalGen.com, Inc. All rights reserved. <br>
 			Disclaimer: Communications between you and LegalGen are protected by our Privacy Policy but not by the attorney-client privilege or as work product. LegalGen provides access to independent attorneys and self-help services at your specific direction. We are not a law firm or a substitute for an attorney or law firm. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible legal rights, remedies, defenses, options, selection of forms or strategies. Your access to the website is subject to our Terms of Use.</p>
-		</div>
-	</footer>		
+	</div>
+</footer>
 </html>
 Copyright 2018

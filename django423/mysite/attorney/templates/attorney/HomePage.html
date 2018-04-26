@@ -1,63 +1,149 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>LegalGen </title>
-		<meta charset="utf-8" />
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-		<link rel="stylesheet" href="../../../mysite/static/css/reset.css">
-		<link rel="stylesheet" href="/resources/demos/style.css">
-		<link rel="stylesheet" href="../../../mysite/static/css/Attorney.css">
-	</head>
-	<body>
-		<div class= "navigation">
-			<img src= 'LegalGenLogoBlue.png' class="logo-img" alt="face">
-			<div class="links">
-			 	<ul class="nav nav-pills nav-stacked">
-					<li><a href='/blog/'>Pricing</a></li>
-					<li><a href='/contact/'>Partners</a></li>
-					<li><a href='/'>Get Started</a></li>						
-					<li><a href='/blog/'>Login</a></li>
-			 	</ul>
-			</div>
-		</div>
-		<div id = "feature">
-			<img src = 'LegalGenLogoBlue.png' alt = "face">
-			<h1><p>Get localized, easy to understand, legal documents in minutes.</p></h1>
-			<form>
- 				First name:<br>
-  				<input type = "text" name="email" value="Enter Your Email">
-  				<input type = "button" value="Sign-Up">
-			</form>
-			<h4>Get started today for free.</h4>
-		</div>
-		<div id = "explination">
-			<h1>How it works.</h1>
-			<br>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-			<div class = "sellingPoint">
-				<img src = 'LegalGenLogoBlue.png' alt = "face">
-				<h3>Find the document that’s right for you.<h3>
-				<p>LegalGen sources documents from law firms across the country to ensure you get a doc that works for your area. </p>	
-			</div>
-		</div>
-	</body>
-	<footer>
-		<div class="socialLinks">
-			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
-		</div>
-		<div id = "Disclaimer">
-			<p>© LegalGen.com, Inc. All rights reserved. <br>
-			Disclaimer: Communications between you and LegalGen are protected by our Privacy Policy but not by the attorney-client privilege or as work product. LegalGen provides access to independent attorneys and self-help services at your specific direction. We are not a law firm or a substitute for an attorney or law firm. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible legal rights, remedies, defenses, options, selection of forms or strategies. Your access to the website is subject to our Terms of Use.</p>
-		</div>
-	</footer>		
+<head>
+    <title>LegalGen </title>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
+</head>
+<body>
+<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+    <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+    <div class="links">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href='/blog/'>Pricing</a></li>
+            <li><a href='/contact/'>Partners</a></li>
+            <li><a href='/'>Get Started</a></li>
+            <li><a href='/blog/'>Login</a></li>
+        </ul>
+    </div>
+</div>
+<div id="feature" style="margin-top: 25px; " align="center">
+    <div style="background-color:#4698FF; box-shadow: -1px -3px 15px 3px #999; border-radius:10px;
+			padding-bottom: 10px;
+			position:absolute; width:100%; height:100%">
+        <img style="height: 100px" src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+
+        <h1><p style="align: 350px; color: white">Get localized, easy to understand, legal
+            documents in
+            minutes.</p></h1>
+        <h2 style=" color:white"><b>Get started today for free.</b></h2>
+        <div>
+            <form style="margin-left: 500px;margin-right: 500px; padding: 25px; border: 7px solid;
+				border-radius:15px;color:white; box-shadow: 10px 10px 45px 1px #111;">
+                <h4><p id="welcome">Sign Up!</p></h4>
+                <label class="switch">
+                    <input id="user" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <h5 class="first">First name:</h5>
+                <input class="first" type="text" name="first name" placeholder="Enter Your First Name" style="color:
+  				#0f0f0f">
+                <br class="last"><h5 class="last">Last name:</h5>
+                <input class="last" type="text" name="last name" placeholder="Enter Your Last Name"
+                       style="color: #0f0f0f">
+                <br class="last"><h5>Email Address:</h5>
+                <input id="email" type="text" name="email" placeholder="Enter Your Email" style="color:#0f0f0f">
+                <br><h5>Password:</h5>
+                <input id="password" type="text" name="password" placeholder="Enter Your Password"
+                       style="color:#0f0f0f">
+                <br class="lawyer"><h5 class="lawyer">Lawyer?</h5>
+                <input class="lawyer" type="radio" name="lawyer" value="Yes"> <span class="lawyer">Yes</span><br>
+                <input class="lawyer" type="radio" name="lawyer" value="No"> <span class="lawyer">No</span><br>
+                <input id="signup" type="button" value="Sign Up" style="color: white; background-color:#4698FF;
+  				box-shadow:
+  				3px 3px 10px 0px #333; border-radius:10px; border: 3px solid; margin-top:2px;">
+                <script>
+                    var u = $('#user');
+
+                    $(function () {
+                        var s = $('#signup');
+                        var f = $('#first');
+                        var l = $('#last');
+                        var e = $('#email');
+                        var p = $('#password');
+                        var is_lawyer = $('input[name="lawyer"]:checked');
+
+                        s.click(function () {
+
+                            if (u.is(':checked')) {
+                                $.getJSON('user/',
+                                    {
+                                        email: e.val(), password: p.val()
+                                    }, function (result) {
+                                        alert('Welcome ' + result['name']);
+                                        $("#next").attr("href", "{% url 'dashboard' %}");
+                                        window.location.replace("{% url 'dashboard' %}");
+
+                                    })
+                            }
+                            else {
+                                $.getJSON('new_user/',
+                                    {
+                                        firstname: f.val(), lastname: l.val(), email: e.val(), password: p.val(),
+                                        lawyer: is_lawyer.val()
+                                    }, function (result) {
+                                        //in views.py send based on is_lawyer and result will have the next html for
+                                        // the next  page
+                                        alert('new user created');
+                                    })
+                            }
+
+                        }).hover(function () {
+                            s.css('box-shadow', 'none').css('color', '#4698FF').css('background-color', '#FFFFFF');
+                        }, function () {
+                            s.css('box-shadow', '3px 3px 10px 0px #333').css('color', '#FFFFFF').css('background-color', '#4698FF');
+                        });
+                    });
+                    //write onclick function for this button, get JSON that will contain whether a succesful add
+                    //and will contain the appropriate page for a lawyer or a client
+                    $(function () {
+                        u.click(function () {
+                            $(".first, .last, .lawyer").toggle();
+
+                            if (u.is(':checked')) {
+                                $("#welcome").text('Sign In!');  // checked
+                                $("#signup").val('Sign In!');
+                            }
+                            else {
+                                $("#welcome").text('Sign Up!');  // unchecked
+                                $("#signup").val('Sign Up!');
+                            }
+
+                        });
+                    });
+                </script>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <div class="socialLinks">
+        <p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#"
+                                                                                                 target="blank">Twitter</a>
+            | <a href="#" target="blank">Google+</a></p>
+    </div>
+    <div id="Disclaimer">
+        <p>© LegalGen.com, Inc. All rights reserved. <br>
+            Disclaimer: Communications between you and LegalGen are protected by our Privacy Policy but not by the
+            attorney-client privilege or as work product. LegalGen provides access to independent attorneys and
+            self-help services at your specific direction. We are not a law firm or a substitute for an attorney or law
+            firm. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible legal
+            rights, remedies, defenses, options, selection of forms or strategies. Your access to the website is subject
+            to our Terms of Use.</p>
+    </div>
+</footer>
 </html>
 Copyright 2018

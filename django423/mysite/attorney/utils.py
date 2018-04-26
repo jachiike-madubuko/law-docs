@@ -11,8 +11,17 @@ filter(person__firstname__istartswith='d')
 filter(legal__name__istartswith='d')
 to find the relationship involving a certain person
 
+
+try catch for models
+
+try:
+    some.objects.get()
+except ObjectDoesNotExist:
+    print("awww")
+
 '''
-from attorney.models import Document, Piece, InState, ForState, Own
+from attorney.models import *
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -72,26 +81,28 @@ def get_my_pieces_list(userID=0, max_results=0, starts_with=''):
     return piece_list
 
 
-def get_my_documents_list(userID, max_results=0, starts_with=''):
-    piece_list = []
-    if starts_with:
-        piece_list = Piece.legals.filter(name__istartswith=starts_with)
+def get_my_documents_list(ipAddress, max_results=0, starts_with=''):
+    try:
+        x = Person.people.get(ipaddress=ipAddress)
+        o = Own.owns.filter(person__personID__istartswith=x.personID)
+        docs = list()
+        for i in o.values('legal__legalID'): docs.append(i['legal__legalID'])
+        document_list = Document.legals.filter(legalID__in=docs).values('name', 'filestackURL', 'price')
 
-    if piece_list and max_results > 0:
-        if piece_list.count() > max_results:
-            piece_list = piece_list[:max_results]
+        if document_list:
+            print("found it")
+            print(document_list)
+        else:
+            print("nothing")
 
-    return piece_list
-    document_list = []
-    # a list of all the own relationships with the user
-    # add when sessions established
-    # my_pieces = Own.owns.filter(person__personID=userID)
-    # my_pieces = Piece.legals.all()
+        return (document_list)
+    except ObjectDoesNotExist:
+        return ({'message': 'FAILED'})
+
     if starts_with:
         # searches users owned legals for ones that start with...
         # piece_list = my_pieces.filter(legal__name__istartswith=starts_with)
         document_list = Document.objects.filter(name__istartswith=starts_with).values('name', 'type', 'piecetype')
-        print(document_list)
 
     if document_list and max_results > 0:
         if document_list.count() > max_results:
@@ -162,3 +173,25 @@ def create_document(f_stack_url):
     newDoc = Document(filestackURL=f_stack_url)
     newDoc.save()
     print('saved')
+
+
+def create_piece(userID, piece):
+    l = Lawyer.people.get(personID=userID)
+    newPiece = Piece(
+        name=piece['name'],
+        content=piece['content'],
+    )
+    newPiece.save()
+
+
+def login(info, ip):
+    try:
+        x = Person.people.get(email=info['email'])
+        if (x.password == info['password']):
+            x.ipAddress = ip
+            x.save()
+            return ({'name': x.firstname, 'id': x.personID, 'message': 'attorney/dashboard.html'})
+        else:
+            return ({'message': 'FAILED'})
+    except ObjectDoesNotExist:
+        return ({'message': 'FAILED'})

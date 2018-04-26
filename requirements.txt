@@ -28,3 +28,4 @@ pytest==3.4.0
 pytest-django==2.8.0
 psycopg2
 django-tinymce4-lite
+pyquery==1.2.4

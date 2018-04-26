@@ -19,7 +19,11 @@
 	<script src="{% static 'js/doc.js' %}"></script>
 	<script>
         $(function () {
-            var delete_button = $("#del");
+            $("#qList li").css({
+                "float": "left", "box-shadow": "1px 1px 50px #ddd",
+                "border-radius": "10px", "padding": "10px", "margin": "10px"
+            });
+
             var edit_box = $("editor");
             var logic_edit_box = $(".logicedit");
             var live = $("#live");
@@ -43,19 +47,15 @@
                     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                     '//www.tinymce.com/css/codepen.min.css']
             });
-   	    $(window).scrollTop(0);
-            delete_button.hide();
-            edit_box.hide();  //keeps the editor out of site until a DocPiece(DP) is clicked
+            $(window).scrollTop(0);
             question_box.hide();
-            merge_templates.hide();
 
-		$("#qList li").css({"float": "left", "box-shadow": "1px 1px 50px #ddd",
-	"border-radius": "10px", "padding": "10px", "margin": "10px"});
 
-        // will eventually be a django front live editor.
-        //this defines the characteristic of the draggable blocks
+            //this defines the characteristic of the draggable blocks
             movable_pieces.not(".addbut", ".t").draggable({
-            axis: "y", containment: "#containment-wrapper", scroll: false, scrollSensitivity: 100
+                axis: "y", containment: "#containment-wrapper",
+                scroll: false,
+                scrollSensitivity: 100
         });
 
         //this defines characteristics of the sort area
@@ -113,7 +113,7 @@
         }
 	});
 
-  // Initializes all textareas with the tinymce class. #make test here 
+            // Initializes all textareas with the tinymce class. #make test here
    	 $( ".italics" ).dblclick( function() { //class::italics given to the DP to make editable
          alert("d");
    	     $(this).addClass("small");         //class::small tracking which DP is being updated
@@ -122,6 +122,7 @@
          tinyMCE.activeEditor.setContent(old);
          dialog.dialog("open");
 
+
     });
 
    	 //functionality of delete button
@@ -129,11 +130,9 @@ $("#sortable li").on('click', '.delbut', function(event) {
     $(this).parent().parent().remove();
 });
 
-//decide the kind of DP
-
-//functionality for the add button. Will be generalized for all DPs
+//functionality for the add button.
             $(".addbut").on("click", function () {
-    //newbie will be changed to be content based on the type of DP selected by user
+
 	//TODO add accordian effect
 
 	$(this).addClass("A");
@@ -346,42 +345,41 @@ $("#testQ").on('click', function () {
         //click test again to display all
     //this button will load a new page with the final Document generated
    	$( "#cont" ).on('click', function(event) {
-        $("#cont").parent().append("<div id='sender'></div>");// insert an invisible form
-		$("#sender").hide();
-        // var sendy = event.target.after("<div id='sender'>  </div>");
-        //   $("#sender").append($(".italics").html());
+        $("#cont").parent().append("<div id='sender' style='width: 100%;height: 100%; overflow: scroll;' hidden></div>");
 
         $(".italics").not("#sortable .pet").each(function (i) {
-            $(this).prepend("&nbsp; &nbsp; &nbsp; &nbsp;");
-            $(this).append("<br />");
+            $(this).prepend("&nbsp; &nbsp; &nbsp;");
             $(this).append("<br />");
             $("#sender").append($(this).html());
 
 
         });
             var sendy = $("#sender");
-        console.log(sendy);
+        $.getJSON('final_doc/', {doc: sendy.html(), title: 'The Document'}, function (result) {
+            alert(result['url']);
+            // var view= ' <iframe src=' + result['url'] +
+            //     'width= 100% height=100% frameborder=1></iframe>';
 
+            var view = ' <iframe src=' + result['url'] + ' scrolling="yes" width= 100% height=100% frameborder=1></iframe>';
+            sendy.empty();
+            sendy.html(view);
+            // var client = filestack.init('AfEkWPbqOQYqKQt291D7dz');
+            // client.preview({
+            //     id: 'sender',
+            //     handle: result['url']
+            // });
 
-            //find out how to convert sender to a text file
+        });
+
+        //find out how to convert sender to a text file
 			//simulate file being dropped into fileststack picker
         live.hide("fade", 100, reveal);
+
         function reveal() {
             setTimeout(function () {
                 final_page.show("fade", 2000);
-
             }, 10);
         }
-        //  const client = filestack.init('AfEkWPbqOQYqKQt291D7dz');
-     //   client.pick({}).then(function(e) {
-   //           const fileUrl = result.filesUploaded[0].url;
-//  link.href=fileUrl;
-  //link.innerHTML=fileUrl;
-       // });
-    //    https://cdn.filestackcontent.com/output=format:pdf/AxnRSaLRL2fERM9C2aGk
-
-
-
 
     var progressbar = $( "#progressbar" ),
       progressLabel = $( ".progress-label" );
@@ -407,61 +405,14 @@ $("#testQ").on('click', function () {
       progressbar.progressbar( "value", val + 1 );
 
       if ( val < 99 ) {
-        setTimeout( progress, 5 );
+          setTimeout(progress, 100);
       }
     }
 
     setTimeout( progress, 2000 );
-        var client = filestack.init('AfEkWPbqOQYqKQt291D7dz');
-        var myBlob = new Blob([sendy.html()], {type: "text/html"});
-        client.upload(myBlob, {intelligent: true, retry: 10}, {filename: 'document.txt'}).then(function (result) {
-            //currently not working
-            var fileUrl = result.filesUploaded[0].url;
-            alert(fileUrl);
-        });
-        $.getJSON('final_doc/', {doc: sendy.html()}, function (result) {
-            console.log(result);
-            alert('ajax alert');
-            alert(result['url']);
-            //write print statement in views to check sendy content
-        });
-  });
 
-//		$('#fpButton').click(function() {
-//  filepicker.setKey("AfEkWPbqOQYqKQt291D7dz");
-//  filepicker.pick({
-			//      services: ['COMPUTER'],
-//      mimetypes: ['application/pdf']
-			//    },
-//    function(Blob) {
-//      console.log(Blob.url);
-//      addL//ink(Blob);
-//      addLink2(Blob);
-//      addLink3(Blob);
-//    }
-//  );
-//});
-//
-//		client.preview('ko0fdJ2Sy2iDnvCuFqjw', { id: 'previewId'});
-//
-//function addLink(data) {
-//  $("#results")
-			//    .append(
-			//      '<a target="_blank" href="' +
-//      data.url + '">' + data.filename + '</a>'
-			//    );
-//}
-//
-//function addLink2(data) {
-//  $("#results2").append('<img target="_blank" src="' +
-			//    'https://process.filestackapi.com/output=format:jpg/resize=w:200/' + data.url.substr(data.url.lastIndexOf("/")+1) + '">'
-			//  );
-//}
-//
-//function addLink3(data) {
-//  $('#results3').load('https://process.filestackapi.com/output=docinfo:true/' + data.url.substr(data.url.lastIndexOf("/")+1) + '');
-//}
-//
+    });
+
 	});
   </script>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
@@ -484,8 +435,6 @@ $("#testQ").on('click', function () {
         <h1>Final Document</h1>
 			<br><br><br>
                 <div id="progressbar"><div class="progress-label">Loading...</div></div>
-            <div id="preview-Id" style="width:500px;height:500px;"></div>
-
     </div>
 		<div class="row">
 		  	<div class="col-sm-2">
@@ -496,7 +445,7 @@ $("#testQ").on('click', function () {
 		  			<br>
 				</div>
 		  	</div>
-            <div id="merge" style="display:none">
+            <div id="merge" hidden>
                     <h1> Merge Fields</h1>  <!-- Insert Javascipt for json -->
 					<div class="appdrop"><h3 >Applicant</h3></div>
 					<p class="app">Prefix </p>
@@ -562,8 +511,6 @@ $("#testQ").on('click', function () {
                           //docpiece search
                           $.getJSON('suggest_piece/', {suggestion: query}, function (result) {
                               $.each(result, function (i, field) {
-                                  //$("#p_list").append("<button>" + field['name'] + "</button>");
-                                  //var foo = function(){
                                   var button = document.createElement('button');
                                   button.innerHTML = field['name'];
                                   button.onclick = function () {
@@ -579,27 +526,13 @@ $("#testQ").on('click', function () {
                                       $(".A").removeClass("A");
                                       return false;
                                   };
-                                  // where do    we want to have the button to appear?
-                                  // you can append it to another element just by doing something like
-                                  // document.getElementById('foobutton').appendChild(button);
+
                                   $("#p_list").append(button);
                               });
                               // });
                           });
                       });
                   });
-                  // $.each(data.items, function (i, item) {
-                  //
-                  //     alert(item.name);
-                                  //  });
-                                  // $.each( data, function( key, val ) {
-                                  //      alert(key, val);
-                                  //      items.push( "<p id='" + key + "'>" + val + "</p>" );
-                                  //  });
-                                  //  $( "<ul/>", {
-                                  //      "class": "my-new-list",
-                                  //   html: items.join( "" )
-                                  //  }).appendTo( "#p_list" );
               </script>
 			  <div  id="dl"><h1>DocLogic</h1>
 
@@ -617,7 +550,7 @@ $("#testQ").on('click', function () {
 				   </div>
 			  </div>
 			<br/>
-          <div id="qbox" title="DocPiece Library">
+              <div id="qbox" title="DocPiece Library" hidden>
   <p><h1> Edit the DocLogic here: </h1><ol id="qbox-list" ></ol></p>
 </div>
 			<div class='container-fluid' id="containment-wrapper">

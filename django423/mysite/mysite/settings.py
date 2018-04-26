@@ -129,7 +129,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'attorney/templates/attorney'),
 )
 
 FIXTURE_DIRS = (

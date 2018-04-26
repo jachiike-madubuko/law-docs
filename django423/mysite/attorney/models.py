@@ -104,7 +104,6 @@ class Document(Legal):
     filestackURL = models.URLField(db_column='fileStackURL', blank=True, null=True, unique=True)
     price = models.FloatField(db_column='price', blank=True, default=19.99)
 
-
     class Meta:
         managed = True
 
