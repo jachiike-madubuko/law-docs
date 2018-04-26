@@ -81,9 +81,15 @@
                                     {
                                         email: e.val(), password: p.val()
                                     }, function (result) {
-                                        alert('Welcome ' + result['name']);
-                                        $("#next").attr("href", "{% url 'dashboard' %}");
-                                        window.location.replace("{% url 'dashboard' %}");
+                                        alert('Welcome ' + result['type'] + ' ' + result['name']);
+                                        if (result['type'] == 'Lawyer') {
+                                            alert("hi lawyer");
+                                            window.location.replace("{% url 'dashboard' %}");
+                                        }
+                                        else {
+                                            window.location.replace("{% url 'map' %}");
+
+                                        }
 
                                     })
                             }

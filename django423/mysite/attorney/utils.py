@@ -190,7 +190,13 @@ def login(info, ip):
         if (x.password == info['password']):
             x.ipAddress = ip
             x.save()
-            return ({'name': x.firstname, 'id': x.personID, 'message': 'attorney/dashboard.html'})
+            try:
+                y = Lawyer.people.get(email=info['email'])
+                type = 'Lawyer'
+            except ObjectDoesNotExist:
+                type = 'Client'
+
+            return ({'name': x.firstname, 'id': x.personID, 'type': type})
         else:
             return ({'message': 'FAILED'})
     except ObjectDoesNotExist:

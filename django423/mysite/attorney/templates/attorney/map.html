@@ -1,0 +1,105 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LegalGen </title>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
+</head>
+<script>
+    $(function () {
+        var row = $("#row");
+        var dashboardHeader = $("#dashboardHeader");
+
+        $.getJSON('/my_dashboard', function (result) {
+            $.each(result, function (i, field) {
+                var doc_prview = document.createElement('div');
+                doc_prview.innerHTML = '<p align="center">' + field['name'] + '<br>' +
+                    field['filestackURL'] + '<br>' +
+                    field['price'] + '</p>';
+                $("td").eq(i).html(doc_prview);
+                doc_prview.onclick = function () {
+
+                    window.location.replace("{% url 'dashboard' %}");
+                    // var view = ' <iframe src=' + field['filestackURL'] +
+                    //     ' scrolling="yes" width= 100% height=100%></iframe>';
+                    //
+                    // dashboardHeader.html(view);
+                    // dashboardHeader.show();
+
+                }
+
+            });
+        });
+        //row.after(row.clone());
+
+    });
+</script>
+<body>
+<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+    <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+    <div class="links">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href='/blog/'>Pricing</a></li>
+            <li><a href='/contact/'>Partners</a></li>
+            <li><a href='/'>Get Started</a></li>
+            <li><a href='/blog/'>Login</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="DocCard" align="center">
+    <h2 class="blueDoc">Client Map</h2>
+    <div id="feature">
+
+        <h1><p>Welcome to Your Dashboard</p></h1>
+        <div style="overflow-y:auto;">
+            <table id="docs" style="width:85%">
+                <tr id="row">
+                    <td width="33%" style="color:black">Jill</td>
+                    <td width="33%" style="color:black">Smith</td>
+                    <td width="33%" style="color:black">50</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="dashboardHeader" class="modal">
+        <span class="close">sdfdjkdsn;</span>
+        <h1 class="blueDoc">Name of Law Firm</h1>
+
+    </div>
+    <div id="stats">
+        <h1>Plug in Stats and Charts</h1>
+        <br>
+    </div>
+</div>
+</body>
+<footer>
+    <div class="socialLinks">
+        <p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#"
+                                                                                                 target="blank">Twitter</a>
+            | <a href="#" target="blank">Google+</a></p>
+    </div>
+    <div id="Disclaimer">
+        <p>© LegalGen.com, Inc. All rights reserved. <br>
+            Disclaimer: Communications between you and LegalGen are protected by our Privacy Policy but not by the
+            attorney-client privilege or as work product. LegalGen provides access to independent attorneys and
+            self-help services at your specific direction. We are not a law firm or a substitute for an attorney or law
+            firm. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible legal
+            rights, remedies, defenses, options, selection of forms or strategies. Your access to the website is subject
+            to our Terms of Use.</p>
+    </div>
+</footer>
+</html>
+Copyright 2018

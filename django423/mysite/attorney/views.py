@@ -42,6 +42,16 @@ def dashboard(request):
     return render(request, 'attorney/dashboard.html')
 
 
+def map(request):
+    """
+        def doc_edit(request):
+        doc_edit will create a document editting environment for lawyers to edit their
+        documents by adding doc pieces
+    """
+
+    return render(request, 'attorney/map.html')
+
+
 def my_dashboard(request):
     doc_list = []
     doc_list = list(get_my_documents_list(request.META['REMOTE_ADDR']))
@@ -120,3 +130,36 @@ def final_doc(request):
         # pass concatentate doc pieces to the file_stack and convert to pdf
         # upload, create function in util that saves the url as a new document
         # send the file views with watermark
+
+
+def my_map(request):
+    # print('entering final doc function')
+    # if request.method == 'GET':
+    #     doc = request.GET['doc']  # doc =  list of the sorted doc pieces
+    #     name = request.GET['title']
+    #
+    #     html = "<html><body>" + doc + "</body></html>"
+    #
+    #     path = os.path.join(TEMPLATE_DIRS[0], 'doc_view.html')
+    #     with open(path, 'w') as f:
+    #         myfile = File(f)
+    #         myfile.write(html)
+    #
+    #     from filestack import Client
+    #     client = Client('AfEkWPbqOQYqKQt291D7dz')
+    #     params = {'mimetype': 'application/pdf'}
+    #     new_filelink = client.upload(filepath=myfile.name)
+    #     # metadata = filelink.get_metadata()
+    #     #
+    #     # print(filelink.url)
+    #     # print(metadata)
+    #
+    #     # conversion = filelink.filetype_conversion(format='pdf')
+    #     # new_filelink = conversion.store()
+    #     new_metadata = new_filelink.get_metadata()
+    #     print("CONVERT")
+    #     print(new_filelink.url)
+    #     print(new_metadata)
+    #     # create_document(new_filelink.url)
+    piece_list = dict()
+    return JsonResponse(piece_list, safe=False)

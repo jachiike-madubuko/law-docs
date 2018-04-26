@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^new_piece/', views.new_piece, name='new_piece'),
     url(r'^final_doc/', views.final_doc, name='final_doc'),
     url(r'^user/', views.user, name='user'),
+    url(r'^map/', views.map, name='map'),
     url(r'^new_user/', views.new_user, name='new_user'),
     url(r'^tinymce/', include('tinymce.urls')),
 
