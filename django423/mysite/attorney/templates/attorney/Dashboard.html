@@ -3,75 +3,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>LegalGen </title>
-	<meta charset="utf-8"/>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://static.filestackapi.com/v3/filestack.js"></script>
-	<script>
+    <title>LegalGen </title>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
+</head>
+<script>
         $(function () {
+            var row = $("#row");
+            var dashboardHeader = $("#dashboardHeader");
+
             $.getJSON('/my_dashboard', function (result) {
                 $.each(result, function (i, field) {
-                    var doc_prview = document.createElement('span');
-                    doc_prview.innerHTML = field['name'] + '<br>' + field['filestackURL'] + '<br>' + field['price'] + '<br><br>';
-                    // button.onclick = function () {
-                    //     var newbie
-                    //         = "<li class='ui-state-defaults'><p class = 'medium'></p><p class = 'italics ui-state-default'>" + field['piecetype'] + "</p><p class = 'hard'></p><ol class = 'legaLogi'></ol></li>";
-                    //
-                    //     $(".A").parent().parent().after(newbie);
-                    //     $('.legaLogi').hide();
-                    //     $("#sortable").change(); //updates the doc and adds buttons to new DPs
-                    //     $("#suggestion").val('');
-                    //
-                    //     $("#addbox").dialog("close");
-                    //     $(".A").removeClass("A");
-                    //     return false;
-                    // };
+                    var doc_prview = document.createElement('div');
+                    doc_prview.innerHTML = '<p align="center">' + field['name'] + '<br>' +
+                        field['filestackURL'] + '<br>' +
+                        field['price'] + '</p>';
+                    $("td").eq(i).html(doc_prview);
+                    doc_prview.onclick = function () {
 
-                    $("#feature").append(doc_prview);
+
+                        var view = ' <iframe src=' + field['filestackURL'] +
+                            ' scrolling="yes" width= 100% height=100%></iframe>';
+
+                        dashboardHeader.html(view);
+                        dashboardHeader.show();
+
+                    }
+
                 });
-                // });
             });
+            //row.after(row.clone());
 
-
-            $(".newDocument").on("click", function () { //TODO load a new document
-            });
         });
 	</script>
-</head>
 <body>
-<div class="navigation">
-	<img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="faces">
-	<div class="links">
-		<ul class="nav nav-pills nav-stacked">
-			<li><a href='/blog/'>Pricing</a></li>
-			<li><a href='/contact/'>Partners</a></li>
-			<li><a href='/'>Get Started</a></li>
-			<li><a href='/blog/'>Login</a></li>
-		</ul>
-	</div>
+<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+    <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+    <div class="links">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href='/blog/'>Pricing</a></li>
+            <li><a href='/contact/'>Partners</a></li>
+            <li><a href='/'>Get Started</a></li>
+            <li><a href='/blog/'>Login</a></li>
+        </ul>
+    </div>
 </div>
-d
-<div id="dashboardHeader">
-	<h1 class="blueDoc">Name of Law Firm</h1>
-	<button class="newDocument"></button>
-</div>
-<div class="DocCard">
+
+<div class="DocCard" align="center">
 	<h2 class="blueDoc">Title of Doc</h2>
-	<h4>num of questions</h4>
-	<h4 class="options">num of questions</h4>
 	<div id="feature">
-		<img src="{% static 'img/LegalGenLogoBlue.png' %}" alt="face">
-		<h1><p>Get localized, easy to understand, legal documents in minutes.</p></h1>
-		<h4>Get started today for free.</h4>
+
+        <h1><p>Welcome to Your Dashboard</p></h1>
+        <div style="overflow-y:auto;">
+            <table id="docs" style="width:85%">
+                <tr id="row">
+                    <td width="33%" style="color:black">Jill</td>
+                    <td width="33%" style="color:black">Smith</td>
+                    <td width="33%" style="color:black">50</td>
+                </tr>
+            </table>
+        </div>
 	</div>
+    <div id="dashboardHeader" class="modal">
+        <span class="close">sdfdjkdsn;</span>
+        <h1 class="blueDoc">Name of Law Firm</h1>
+
+    </div>
 	<div id="stats">
 		<h1>Plug in Stats and Charts</h1>
 		<br>

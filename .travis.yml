@@ -9,8 +9,6 @@ python:
 
 env:
   - DJANGO=2.0.0
-  - DJANGO_VERSION=2.0.0
-  
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=mysite.settings
@@ -20,6 +18,7 @@ install:
  # - pip install .
   - pip install -q Django==2.0.0 --quiet
   - pip install -r requirements.txt
+  - python django423/mysite/manage.py install
   #- pip install -U pytest
  # - python setup.py -q install
 
