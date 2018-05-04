@@ -132,17 +132,20 @@ def get_my_documents_list(ipAddress, max_results=0, starts_with=''):
 
 
 def by_states(st, lawyer=False, client=False, document=False):
+    print(st)
     state_stack = []
-    find_state_by_ppl = InState.people_states.all()
-    find_state_by_legal = ForState.legals_states.all()
+    # might need to be a dict when multiple models are needed
     if (lawyer):
-        find_state_by_ppl.filter()
+        state_stack = Lawyer.people.filter(state=st).values('legalID', 'name', 'filestackURL', 'price', 'type')
 
     if (document):
-        find_state_by_legal.filter()
+        state_stack = Document.legals.filter(state=st).values('legalID', 'name', 'ownedby__firstname',
+                                                              'ownedby__lastname', 'price', 'type')
 
     if (client):
-        find_state_by_ppl.filter()
+        state_stack = Client.people.filter(state=st).values('legalID', 'name', 'filestackURL', 'price', 'type')
+    print(state_stack)
+    return state_stack
 
 
 def by_tag(tag, lw, lawyer=False, client=False, document=False):

@@ -66,24 +66,25 @@
                         $('#clicked-state')
                             .text('You clicked: ' + data.name)
                             .parent().effect('highlight', {color: '#4698ff'}, 2000);
-                        getDocs();
+                        getDocs(data.name);
                         //TODO add run get JSON to get docs in that state
                         //TODO add addition search filters that generate search results
                     }
 
                 });
 
-                function getDocs() {
-                    alert('your code here');
+                function getDocs(st) {
         var row = $("#row");
         var dashboardHeader = $("#dashboardHeader");
+                    $('td').empty();
 
-                    $.getJSON('/lawyer_dashboard', function (result) {
+                    $.getJSON('/client_dashboard', {state: st}, function (result) {
             $.each(result, function (i, field) {
                 var doc_prview = document.createElement('div');
-                doc_prview.innerHTML = '<p align="center">' + field['name'] + '<br>' +
-                    field['filestackURL'] + '<br>' +
-                    field['price'] + '</p>';
+                doc_prview.innerHTML = '<p align="center">Title: ' + field['name'] + '<br>Type of Document: ' +
+                    field['Type'] + '<br>Price: ' +
+                    field['price'] + '<br>Created by: ' + field['ownedby__lastname'] + ', ' +
+                    field['ownedby__firstname'] + '</p>';
                 $("td").eq(i).html(doc_prview);
                 doc_prview.onclick = function () {
 

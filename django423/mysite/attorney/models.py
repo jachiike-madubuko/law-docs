@@ -28,6 +28,64 @@ class Person(models.Model):
     lastlogin = models.DateTimeField(db_column='lastLogin')
     ipaddress = models.GenericIPAddressField(db_column='IPAddress', unpack_ipv4=True)
     tags = ArrayField(models.CharField(max_length=200), null=True)
+    STATE_CHOICES = (
+        ('DC', 'District of Columbia'),
+        ('AL', 'Alabama'),
+        ('AK', 'Alaska'),
+        ('AZ', 'Arizona'),
+        ('AR', 'Arkansas'),
+        ('CA', 'California'),
+        ('CO', 'Colorado'),
+        ('CT', 'Connecticut'),
+        ('DE', 'Delaware'),
+        ('FL', 'Florida'),
+        ('GA', 'Georgia'),
+        ('HI', 'Hawaii'),
+        ('ID', 'Idaho'),
+        ('IL', 'Illinois'),
+        ('IN', 'Indiana'),
+        ('IA', 'Iowa'),
+        ('KS', 'Kansas'),
+        ('KY', 'Kentucky'),
+        ('LA', 'Louisiana'),
+        ('ME', 'Maine'),
+        ('MD', 'Maryland'),
+        ('MA', 'Massachusetts'),
+        ('MI', 'Michigan'),
+        ('MN', 'Minnesota'),
+        ('MS', 'Mississippi'),
+        ('MO', 'Missouri'),
+        ('MT', 'Montana'),
+        ('NE', 'Nebraska'),
+        ('NV', 'Nevada'),
+        ('NH', 'New Hampshire'),
+        ('NJ', 'New Jersey'),
+        ('NM', 'New Mexico'),
+        ('NY', 'New York'),
+        ('NC', 'North Carolina'),
+        ('ND', 'North Dakota'),
+        ('OH', 'Ohio'),
+        ('OK', 'Oklahoma'),
+        ('OR', 'Oregon'),
+        ('PA', 'Pennsylvania'),
+        ('RI', 'Rhode Island'),
+        ('SC', 'South Carolina'),
+        ('SD', 'South Dakota'),
+        ('TN', 'Tennessee'),
+        ('TX', 'Texas'),
+        ('UT', 'Utah'),
+        ('VT', 'Vermont'),
+        ('VA', 'Virginia'),
+        ('WA', 'Washington'),
+        ('WV', 'West Virginia'),
+        ('WI', 'Wisconsin'),
+        ('WY', 'Wyoming'),
+    )
+    state = models.CharField(
+        max_length=2,
+        blank=True,
+        null=True,
+        choices=STATE_CHOICES)
 
     people = models.Manager()
 
@@ -111,35 +169,6 @@ class Legal(models.Model):
 class Document(Legal):
     filestackURL = models.URLField(db_column='fileStackURL', blank=True, null=True, unique=True)
     price = models.FloatField(db_column='price', blank=True, default=19.99)
-
-    class Meta:
-        managed = True
-
-
-class Form(Legal):
-    typeform = JSONField(db_column='typeForm', blank=True, null=True)
-    doceditor = JSONField(db_column='docEditor', blank=True, null=True)
-    doc = models.OneToOneField(Document, on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        managed = True
-
-
-class Piece(Legal):
-    content = models.CharField(db_column='content', max_length=1000, blank=True, null=True)
-
-    # models.ImageField()
-    piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
-    attached_doc = models.ForeignKey(Document, on_delete=models.CASCADE)
-
-    class Meta:
-        managed = True
-
-
-###########################################END OF LEGALS##################################################
-
-########################################START SEARCH TABLES###############################################
-class State(models.Model):
     STATE_CHOICES = (
         ('DC', 'District of Columbia'),
         ('AL', 'Alabama'),
@@ -193,26 +222,37 @@ class State(models.Model):
         ('WI', 'Wisconsin'),
         ('WY', 'Wyoming'),
     )
-
-    states = models.Manager()
-
     state = models.CharField(
-        unique=True,
         max_length=2,
+        blank=True,
+        null=True,
         choices=STATE_CHOICES)
 
-    inState = models.ManyToManyField(Person, through='InState', related_name='person_in_state')
-    forState = models.ManyToManyField(Legal, through='ForState', related_name='item_in_state')
-
     class Meta:
-        ordering = ['state']
         managed = True
 
-    def __str__(self):
-        return self.state
+
+class Form(Legal):
+    typeform = JSONField(db_column='typeForm', blank=True, null=True)
+    doceditor = JSONField(db_column='docEditor', blank=True, null=True)
+    doc = models.OneToOneField(Document, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        managed = True
 
 
-########################################END SEARCH TABLES#################################################
+class Piece(Legal):
+    content = models.CharField(db_column='content', max_length=1000, blank=True, null=True)
+
+    # models.ImageField()
+    piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
+    attached_doc = models.ForeignKey(Document, on_delete=models.CASCADE)
+
+    class Meta:
+        managed = True
+
+
+###########################################END OF LEGALS##################################################
 
 ######################################START OF USER <-> LEGAL RELATIONSHIPS###############################
 # TODO simplify and create fake data for these relationships
@@ -263,26 +303,6 @@ class Own(models.Model):
 
     class Meta:
         ordering = ["owned"]
-        managed = True
-
-
-class InState(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-
-    people_states = models.Manager()
-
-    class Meta:
-        managed = True
-
-
-class ForState(models.Model):
-    legal = models.ForeignKey(Legal, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-
-    legals_states = models.Manager()
-
-    class Meta:
         managed = True
 
 #####################################END OF USER <-> LEGAL RELATIONSHIPS###############################

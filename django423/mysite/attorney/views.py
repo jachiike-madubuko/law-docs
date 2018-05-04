@@ -139,7 +139,11 @@ def lawyer_dashboard(request):
 
 def client_dashboard(request):
     doc_list = []
-    doc_list = list(get_documents_list(request.META['REMOTE_ADDR']))
+
+    if request.method == 'GET':
+        st = request.GET.get('state')
+
+        doc_list = list(by_states(st, lawyer=False, client=False, document=True))
 
     return JsonResponse(doc_list, safe=False)
 
@@ -255,7 +259,6 @@ def my_map(request):
     #     # create_document(new_filelink.url)
     piece_list = dict()
     return JsonResponse(piece_list, safe=False)
-
 
 def plotly(request):
     plot = list()
