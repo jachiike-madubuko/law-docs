@@ -1,0 +1,118 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LegalGen </title>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.scss' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
+</head>
+<body>
+<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+    <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+    <div class="links">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href='/blog/'>Pricing</a></li>
+            <li><a href='/contact/'>Partners</a></li>
+            <li><a href='/'>Get Started</a></li>
+            <li><a href='/blog/'>Login</a></li>
+        </ul>
+    </div>
+</div>
+<div id="feature" style="margin-top: 25px; color: #fff; " align="center">
+    <div style="background-color:#4698FF; box-shadow: -1px -3px 15px 3px #999; border-radius:10px;
+			padding-bottom: 10px;
+			position:absolute; width:100%; height:100%">
+        <img style="height: 100px" src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+        <div style="height: 150px;"></div>
+        <b style=" color:white"><h2 id="title">Checkout</h2></b>
+        <h1><p id="statement" style="align: 350px; color: white">Wow that was quick! Enter a card to get your legal
+            document!</p></h1>
+
+        <button class="button" id="customButton"
+                style=" border: white solid 1px; width: 150px; font-size: 20px; box-shadow:white 3px 3px 0px 1px;"><i
+                class="fa fa-shopping-cart fa-lg"></i>
+            <p>Purchase</p>
+        </button>
+        <a href="https://cdn.filestackcontent.com/oJz5IUAITaFIUJ06wE6g" hidden id="link"> <b><p
+                style="font-size: 20px; color: white">Your
+            Document</p></b></a>
+    </div>
+</div>
+</body>
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_6RsWyUTxyKuhgtaB51ffpYyB',
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        token: function (token) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+        }
+    });
+    var but = $('#customButton');
+    var tit = $('#title');
+    var state = $('#statement');
+    var link = $('#link');
+    but.on('mouseover', function (e) {
+        but.css('box-shadow', '0px 0px 0px 0px');
+    });
+    but.on('mouseleave', function (e) {
+        but.css('box-shadow', 'white 3px 3px 0px 1px');
+    });
+    but.on('click', function (e) {
+
+        // Open Checkout with further options:
+        handler.open({
+            name: 'Legal Gen',
+            description: 'Document Purchase',
+            amount: 0001,
+            zipCode: true,
+            billingAddress: true,
+            closed: function () {
+                but.hide();
+                tit.html("Complete!");
+                state.html("Click the link below and download your legal document");
+                link.show();
+
+
+            }
+        });
+        e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function () {
+        handler.close();
+    });
+</script>
+<footer>
+    <div class="socialLinks">
+        <p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn</a> | <a href="#"
+                                                                                                 target="blank">Twitter</a>
+            | <a href="#" target="blank">Google+</a></p>
+    </div>
+    <div id="Disclaimer">
+        <p>© LegalGen.com, Inc. All rights reserved. <br>
+            Disclaimer: Communications between you and LegalGen are protected by our Privacy Policy but not by the
+            attorney-client privilege or as work product. LegalGen provides access to independent attorneys and
+            self-help services at your specific direction. We are not a law firm or a substitute for an attorney or law
+            firm. We cannot provide any kind of advice, explanation, opinion, or recommendation about possible legal
+            rights, remedies, defenses, options, selection of forms or strategies. Your access to the website is subject
+            to our Terms of Use.</p>
+    </div>
+</footer>
+</html>
+Copyright 2018

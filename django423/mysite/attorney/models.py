@@ -9,6 +9,13 @@ Change your models (in models.py).
 Run python django423/mysite/manage.py makemigrations to create migrations for those changes
 Run python django423/mysite/manage.py migrate --run-syncdb to apply those changes to the database.
 """
+
+'''
+python django423/mysite/manage.py loadtestdata attorney.Lawyer:75 attorney.Client:75 attorney.Document:75 attorney.Form:75 attorney.Piece:100 attorney.Firm:60 attorney.State:51 attorney.Buy:40 attorney.Use:70 attorney.Own:75 attorney.View:75 attorney.InState:30 attorney.ForState:20 attorney.Employee:25 
+
+'''
+
+
 ###########################################START OF USER ROLES##########################################
 class Person(models.Model):
     personID = models.AutoField(db_column='personID', primary_key=True, max_length=9, unique=True)
@@ -22,7 +29,6 @@ class Person(models.Model):
     ipaddress = models.GenericIPAddressField(db_column='IPAddress', unpack_ipv4=True)
     tags = ArrayField(models.CharField(max_length=200), null=True)
 
-
     people = models.Manager()
 
     @property
@@ -34,7 +40,6 @@ class Person(models.Model):
         ordering = ["lastname"]
         verbose_name_plural = "people"
 
-
     def __str__(self):
         return self.fullname
 
@@ -45,11 +50,13 @@ class Client(Person):
     class Meta:
         managed = True
 
+
 class Lawyer(Person):
     lawyerdata = JSONField(null=True)
 
     class Meta:
         managed = True
+
 
 class Firm(models.Model):
     firmID = models.AutoField(db_column='firmID', primary_key=True, max_length=9, unique=True)
@@ -62,6 +69,7 @@ class Firm(models.Model):
     def __str__(self):
         return self.name
 
+
 class Employee(models.Model):
     employed = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='employed_lawyer', default=1)
     employer = models.ForeignKey(Firm, on_delete=models.CASCADE, related_name='employing_firm', default=1)
@@ -72,6 +80,7 @@ class Employee(models.Model):
     class Meta:
         managed = True
         ordering = ["date_joined"]
+
 
 #########################################END OF USER ROLES###############################################
 
@@ -93,7 +102,6 @@ class Legal(models.Model):
     legals = models.Manager()
 
     class Meta:
-        ordering = ["type"]
         managed = True
 
     def __str__(self):
@@ -107,21 +115,27 @@ class Document(Legal):
     class Meta:
         managed = True
 
+
 class Form(Legal):
     typeform = JSONField(db_column='typeForm', blank=True, null=True)
     doceditor = JSONField(db_column='docEditor', blank=True, null=True)
+    doc = models.OneToOneField(Document, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         managed = True
 
+
 class Piece(Legal):
-    content = models.CharField(db_column='content', max_length=500, blank=True, null=True)
+    content = models.CharField(db_column='content', max_length=1000, blank=True, null=True)
 
     # models.ImageField()
     piecetype = models.CharField(db_column='pieceType', max_length=30, blank=True, null=True)
+    attached_doc = models.ForeignKey(Document, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
+
+
 ###########################################END OF LEGALS##################################################
 
 ########################################START SEARCH TABLES###############################################
@@ -194,9 +208,10 @@ class State(models.Model):
         ordering = ['state']
         managed = True
 
-
     def __str__(self):
         return self.state
+
+
 ########################################END SEARCH TABLES#################################################
 
 ######################################START OF USER <-> LEGAL RELATIONSHIPS###############################
@@ -227,7 +242,6 @@ class Use(models.Model):
         managed = True
 
 
-
 class Buy(models.Model):
     person = models.ForeignKey(Person, models.DO_NOTHING)
     legal = models.ForeignKey(Legal, models.DO_NOTHING)
@@ -238,7 +252,6 @@ class Buy(models.Model):
     class Meta:
         ordering = ["purchased"]
         managed = True
-
 
 
 class Own(models.Model):
@@ -261,6 +274,7 @@ class InState(models.Model):
 
     class Meta:
         managed = True
+
 
 class ForState(models.Model):
     legal = models.ForeignKey(Legal, on_delete=models.CASCADE)

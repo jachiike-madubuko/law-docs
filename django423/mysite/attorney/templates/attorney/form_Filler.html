@@ -1,4 +1,5 @@
-
+{% load staticfiles %}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,12 +9,13 @@
 	<link rel="stylesheet" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-	<link rel="stylesheet" href="/resources/demos/style.css">
 	<link rel="stylesheet" href="{% static 'css/Attorney.css' %}">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="{% static 'js/form-builder.min.js' %}"></script>
+	<script src="{% static 'js/form-render.min.js' %}"></script>
 	<script>
 		//TODO move this to a seperate file
    	$(function() {
@@ -21,10 +23,9 @@
         $("#del").hide();
         $("#editor").hide();  //keeps the editor out of site until a DocPiece(DP) is clicked
         $("#ed").hide();
-        $("#final").hide();
+        $("#dl").hide();
         $("#qbox").hide();
         $("#addbox").hide();
-		$("#merge").hide();
         // will eventually be a django front live editor.
         //this defines the characteristic of the draggable blocks
         $(".ui-state-defaults").not(".addbut", ".t").draggable({
@@ -418,23 +419,58 @@ $("#testQ").on('click', function () {
 			 		</ul>
 			</div>
 		</div>
-		<div id="final" >
-        <h1>Final Document</h1>
-			<br><br><br>
-                <div id="progressbar"><div class="progress-label">Loading...</div></div>
-
-    </div>
-		<div class="row">
-		  	<div class="col-sm-2">
-				<div id = "editor">
-			 		<h1> Edit the DocPiece here: </h1>
-			  		<textarea id="swag" placeholder="Balabala" rows= "15",
-		  				cols= "50", autofocus>Edit your text block below.</textarea>
-		  			<br>
+		<div class='container-fluid' id="containment-wrapper">
+			<br><br>
+			<!-- {% block content %} -->
+			<!-- {% endblock %} -->
+			<div id="sortable">
+				<div id="fb-rendered-form">
+					<form action="#"></form>
+					<button class="btn btn-default finish">Done!</button>
 				</div>
-		  	</div>
+				<script>
+                    $.getJSON('/get_form', function (result) {
+                        //sends the docID to be cross referenced with the formID for loading
+                    });
+                    var data =
+                        '[{"type":"autocomplete","label":"Autocomplete","className":"form-control","name":"autocomplete-1525304763371","values":[{"label":"Option 1","value":"option-1"},{"label":"Option 2","value":"option-2"},{"label":"Option 3","value":"option-3"}]},{"type":"checkbox-group","label":"Checkbox Group","name":"checkbox-group-1525304764538","values":[{"label":"Option 1","value":"option-1","selected":true}]},{"type":"file","label":"File Upload","className":"form-control","name":"file-1525304765780","subtype":"file"},{"type":"header","subtype":"h1","label":"Header"},{"type":"file","label":"File Upload","className":"form-control","name":"file-1525304768179","subtype":"file"}]';
+                    jQuery(function ($) {
+                        var $formContainer = $(document.getElementById('fb-rendered-form'));
+                        $formContainer.toggle();
+
+                        $('form', $formContainer).formRender({
+                            formData: data
+                        });
+                        $('.finish', $formContainer).click(function () {
+                            $formContainer.toggle();
+                            //go to checkout pages and send data to document_magic
+                            window.location.replace("{% url 'checkout' %}");
+
+                        });
+                    });
+				</script>
+				<style type="text/css">
+					html,
+					body {
+						height: 100%
+					}
+
+					#fb-rendered-form {
+						clear: both;
+						display: none;
+					}
+
+					button {
+						float: right;
+					}
+				</style>
+				</div>
+		</div>
+
+		<div class="row">
 				<div id="merge" >
 					<h1> Merge Fields</h1>
+					<!-- Make into Merge Field Creator -->
 					<div class="appdrop"><h3 >Applicant</h3></div>
 					<p class="app">Prefix </p>
 					<p class="app">First Name</p>
@@ -469,6 +505,7 @@ $("#testQ").on('click', function () {
                         $(".app, .spouse, .pets").on('click', function(){alert("Copied to Clipboard!");});
                     });
 					</script>
+
 				</div>
 				</div>
 		   	<!-- Great, til you resize. -->
@@ -505,26 +542,6 @@ $("#testQ").on('click', function () {
 				   </div>
 			  </div>
 			<br/>
-          <div id="qbox">
-  <p><h1> Edit the DocLogic here: </h1><ol id="qbox-list" ></ol></p>
-</div>
-			<div class='container-fluid' id="containment-wrapper">
-			<br><br>
-			   <!-- {% block content %} -->
-			   <!-- {% endblock %} -->
-				<div id="sortable">
-					<li class="ui-state-defaults ui-state-disabled t"><span></span><h1><b>LAST WILL AND
-						TESTAMENT <br> OF <br>{Applicant.FullName}</b></h1></li>
-                    <li class='ui-state-defaults'>
-                    	<p>
-                    		<button class="addbut"></button>
-                    	</p>
-                    </li>
-                    <li id='del' class='ui-state-defaults'> <button class ="delbut"></button></li>
-					<li id='ed' class='ui-state-defaults'> <button class ="edbut"> </button></li>
-
-				</div>
-			</div>
 		  </div>
         <button id="cont">CONTINUE</button>
 		</div>
@@ -535,8 +552,8 @@ $("#testQ").on('click', function () {
 			<p><a href="#" target="blank">Contact</a> | <a href="#" class="fa fa-linkedin"></a> | <a href="#" class="fa fa-twitter"></a> |<a href="#" class="fa fa-google"></a> | <a href="https://github.com/jachiike-madubuko/legal_gen">Github</a></p>
 		</div>
 
-	</footer>	
-	
+	</footer>
+
 </body>
 
 </html>
@@ -550,11 +567,6 @@ $("#testQ").on('click', function () {
 	<link rel="stylesheet" href="{% static 'attorney/css/bootstrap.min.css' %}" type = "text/css"/>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 
-	<style type="text/css">
-		html,
-		body {
-		  height:100%
-		}
-	</style>
+
 </head>
 

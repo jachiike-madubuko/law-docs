@@ -226,6 +226,11 @@ button, .ui-button {
 	top: 5;
 }
 
+.DocCard {
+    box-shadow: 2px 5px 15px -1px #777;
+    border-radius: 5px;
+}
+
 .delbut:hover{
 	float: left;
 	background-color: #FF4646;

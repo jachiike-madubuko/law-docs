@@ -15,37 +15,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://static.filestackapi.com/v3/filestack.js"></script>
+    <script src="{% static 'js/raphael.js' %}"></script>
+    <script src="{% static 'js/jquery.usmap.js' %}"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=eapn57jidlkz4lrg5cgp51wmb97assan19znjkz1wem88neu"></script>
 </head>
-<script>
-    $(function () {
-        var row = $("#row");
-        var dashboardHeader = $("#dashboardHeader");
-
-        $.getJSON('/my_dashboard', function (result) {
-            $.each(result, function (i, field) {
-                var doc_prview = document.createElement('div');
-                doc_prview.innerHTML = '<p align="center">' + field['name'] + '<br>' +
-                    field['filestackURL'] + '<br>' +
-                    field['price'] + '</p>';
-                $("td").eq(i).html(doc_prview);
-                doc_prview.onclick = function () {
-
-                    window.location.replace("{% url 'dashboard' %}");
-                    // var view = ' <iframe src=' + field['filestackURL'] +
-                    //     ' scrolling="yes" width= 100% height=100%></iframe>';
-                    //
-                    // dashboardHeader.html(view);
-                    // dashboardHeader.show();
-
-                }
-
-            });
-        });
-        //row.after(row.clone());
-
-    });
-</script>
 <body>
 <div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
     <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
@@ -64,7 +37,81 @@
     <div id="feature">
 
         <h1><p>Welcome to Your Dashboard</p></h1>
-        <div style="overflow-y:auto;">
+        <div id="stats" style="
+    box-shadow: 2px 5px 15px -1px #777; width: 90%;
+    border-radius:5px;
+">
+            <h1>Search Map</h1>
+            <div id="map" style="width: 500px; height: 300px; border:1px solid #4698ff"></div>
+
+            <script>
+                var map = $('#map');
+                $(document).ready(function () {
+                    map.usmap({});
+                });
+                map.usmap({
+
+                    showLabels: true,
+                    stateStyles: {fill: '#4698ff'},
+                    stateHoverStyles: {fill: '#ffffff'},
+                    stateSpecificStyles: {
+                        // 'MD': {fill: 'yellow'},
+                        // 'VA': {fill: 'teal'}
+                    },
+                    stateSpecificHoverStyles: {
+                        // 'MD': {fill: 'purple'},
+                        // 'VA': {fill: 'orange'}
+                    },
+                    click: function (event, data) {
+                        $('#clicked-state')
+                            .text('You clicked: ' + data.name)
+                            .parent().effect('highlight', {color: '#4698ff'}, 2000);
+                        getDocs();
+                        //TODO add run get JSON to get docs in that state
+                        //TODO add addition search filters that generate search results
+                    }
+
+                });
+
+                function getDocs() {
+                    alert('your code here');
+        var row = $("#row");
+        var dashboardHeader = $("#dashboardHeader");
+
+                    $.getJSON('/lawyer_dashboard', function (result) {
+            $.each(result, function (i, field) {
+                var doc_prview = document.createElement('div');
+                doc_prview.innerHTML = '<p align="center">' + field['name'] + '<br>' +
+                    field['filestackURL'] + '<br>' +
+                    field['price'] + '</p>';
+                $("td").eq(i).html(doc_prview);
+                doc_prview.onclick = function () {
+
+                    $.getJSON('/post_form', {docID: field['legalID']}, function (result) {
+                        //sends the docID to be cross referenced with the formID for loading
+                        window.location.replace("{% url 'form_filler' %}");
+                    });
+
+
+                }
+
+            });
+                        //for now just have clicking on a doc goes to the payment process.
+        });
+        //row.after(row.clone());
+
+                }
+            </script>
+            <br>
+            <div>
+                <div id="clicked-state"></div>
+            </div>
+    </div>
+        <br>
+        <div style="overflow-y:auto;
+    box-shadow: 2px 5px 15px -1px #777;
+    border-radius:5px;
+">
             <table id="docs" style="width:85%">
                 <tr id="row">
                     <td width="33%" style="color:black">Jill</td>
@@ -79,10 +126,7 @@
         <h1 class="blueDoc">Name of Law Firm</h1>
 
     </div>
-    <div id="stats">
-        <h1>Plug in Stats and Charts</h1>
-        <br>
-    </div>
+
 </div>
 </body>
 <footer>

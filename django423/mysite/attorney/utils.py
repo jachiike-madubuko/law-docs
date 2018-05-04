@@ -20,6 +20,10 @@ except ObjectDoesNotExist:
     print("awww")
 
 '''
+# TODO test state queries
+# TODO test state queries
+# https://docs.djangoproject.com/en/2.0/ref/forms/
+# find formbuilder api
 from attorney.models import *
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -43,6 +47,22 @@ def get_pieces_list(max_results=0, starts_with=''):
     return piece_list
 
 
+def get_document_pieces(docID):
+    p = list()
+    # a list of all the own relationships with the user
+    # add when sessions established
+    # my_pieces = Own.owns.filter(person__personID=userID)
+    # my_pieces = Piece.legals.all()
+    try:
+        p = Document.legals.get(legalID=docID).piece_set.all().values('legalID', 'name', 'type', 'content')
+        print(p)
+    except ObjectDoesNotExist:
+        print("awww")
+    # searches users owned legals for ones that start with...
+    # piece_list = my_pieces.filter(legal__name__istartswith=starts_with
+    return p
+
+
 def get_documents_list(max_results=0, starts_with=''):
     document_list = []
     # a list of all the own relationships with the user
@@ -52,7 +72,8 @@ def get_documents_list(max_results=0, starts_with=''):
     if starts_with:
         # searches users owned legals for ones that start with...
         # piece_list = my_pieces.filter(legal__name__istartswith=starts_with)
-        document_list = Document.legals.filter(name__istartswith=starts_with).values('name', 'type', 'piecetype')
+        document_list = Document.legals.filter(name__istartswith=starts_with).values('legalID', 'name', 'type',
+                                                                                     'piecetype')
         print(document_list)
 
     if document_list and max_results > 0:
@@ -87,7 +108,7 @@ def get_my_documents_list(ipAddress, max_results=0, starts_with=''):
         o = Own.owns.filter(person__personID__istartswith=x.personID)
         docs = list()
         for i in o.values('legal__legalID'): docs.append(i['legal__legalID'])
-        document_list = Document.legals.filter(legalID__in=docs).values('name', 'filestackURL', 'price')
+        document_list = Document.legals.filter(legalID__in=docs).values('legalID', 'name', 'filestackURL', 'price')
 
         if document_list:
             print("found it")
@@ -183,6 +204,12 @@ def create_piece(userID, piece):
     )
     newPiece.save()
 
+
+def create_form(formdata):
+    newForm = Form(name='s', doceditor=formdata)
+
+    newForm.save()
+    print(newForm)
 
 def login(info, ip):
     try:
