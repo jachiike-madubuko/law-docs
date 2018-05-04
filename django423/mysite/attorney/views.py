@@ -119,6 +119,14 @@ def doc_finder(request):
 
     return JsonResponse(doc_piece_list, safe=False)
 
+
+def new_doc(request):
+    global docID
+
+    doc_piece_list = []
+
+    return JsonResponse(doc_piece_list, safe=False)
+
 def map(request):
     """
         def doc_edit(request):
@@ -144,6 +152,7 @@ def client_dashboard(request):
         st = request.GET.get('state')
 
         doc_list = list(by_states(st, lawyer=False, client=False, document=True))
+        print(doc_list)
 
     return JsonResponse(doc_list, safe=False)
 
@@ -214,19 +223,10 @@ def final_doc(request):
         print("CONVERT")
         print(new_filelink.url)
         print(new_metadata)
-        # create_document(new_filelink.url)
+        create_document(name, new_filelink.url)
 
         return JsonResponse({'url': new_filelink.url, 'path': myfile.name}, safe=False)
 
-        # screenshot = client.url_screenshot('https://www.example.com', width=100, height=100, agent="desktop")
-        # filelink = screenshot.store()
-        # new_path = settings.MEDIA_ROOT + name
-        # #now render this has a filestack view
-        # return HttpResponse(html)
-        # return render(request, myfile.name)
-        # pass concatentate doc pieces to the file_stack and convert to pdf
-        # upload, create function in util that saves the url as a new document
-        # send the file views with watermark
 
 def my_map(request):
     # print('entering final doc function')

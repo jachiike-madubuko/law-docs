@@ -412,11 +412,17 @@ $("#testQ").on('click', function () {
 		<div class= "navigation">
       <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
 			<div class="links">
-			 		<ul class="nav nav-pills nav-stacked">
-						<li><a href='/'>Dashboard</a></li>
-						<li><a href='/blog/'>Account Info</a></li>
-						<li><a href='/contact/'>Logout</a></li>
-			 		</ul>
+				<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+					<img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+					<div class="links">
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+							<li><a href='https://waylon1.typeform.com/to/m74c5U'>Report a Bug</a></li>
+							<li><a href="https://jachiike-madubuko.github.io/legal_gen/">Github</a></li>
+							<li><a href="/">Logout</a>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class='container-fluid' id="containment-wrapper">

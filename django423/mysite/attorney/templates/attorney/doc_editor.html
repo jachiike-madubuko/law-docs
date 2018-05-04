@@ -355,20 +355,11 @@ $("#testQ").on('click', function () {
 
         });
             var sendy = $("#sender");
-        $.getJSON('final_doc/', {doc: sendy.html(), title: 'The Document'}, function (result) {
-            alert(result['url']);
-            // var view= ' <iframe src=' + result['url'] +
-            //     'width= 100% height=100% frameborder=1></iframe>';
-
+        var title = $("#title");
+        $.getJSON("{% url 'final_doc' %}", {doc: sendy.html(), title: title.val()}, function (result) {
             var view = ' <iframe src=' + result['url'] + ' scrolling="yes" width= 100% height=100% frameborder=1></iframe>';
             sendy.empty();
             sendy.html(view);
-            // var client = filestack.init('AfEkWPbqOQYqKQt291D7dz');
-            // client.preview({
-            //     id: 'sender',
-            //     handle: result['url']
-            // });
-
         }).fail(function () {
             alert('s');
         });
@@ -407,7 +398,7 @@ $("#testQ").on('click', function () {
       progressbar.progressbar( "value", val + 1 );
 
       if ( val < 99 ) {
-          setTimeout(progress, 100);
+          setTimeout(progress, 50);
       }
     }
 
@@ -441,21 +432,26 @@ $("#testQ").on('click', function () {
 <body>
 
 	<div class="container-fluid">
-		<div class= "navigation">
-      <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
+		<div class="navigation" style="box-shadow: 2px 5px 15px -1px #777; border-radius:5px;">
+			<img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
 			<div class="links">
-			 		<ul class="nav nav-pills nav-stacked">
-						<li><a href='/'>Dashboard</a></li>
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
 						<li><a href='https://waylon1.typeform.com/to/m74c5U'>Report a Bug</a></li>
-						<li><a href='/contact/'>Logout</a></li>
-			 		</ul>
+					<li><a href="https://jachiike-madubuko.github.io/legal_gen/">Github</a></li>
+					<li><a href="/">Logout</a>
+				</ul>
 			</div>
 		</div>
         <div id="final" style="display:none">
-        <h1>Final Document</h1>
+			<h1>Document Preview</h1>
 			<br><br><br>
                 <div id="progressbar"><div class="progress-label">Loading...</div></div>
-    </div>
+		</div>
+		<div id="form_edit" style="display:none">
+			<h1>Edit Form</h1>
+			<br><br>
+		</div>
 		<div class="row">
 		  	<div class="col-sm-2">
                 <div id="editor" hidden>
@@ -503,10 +499,7 @@ $("#testQ").on('click', function () {
 					</script>
 				</div>
 				</div>
-		   	<!-- Great, til you resize. -->
-			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-		  	</div> <!--col-sm-2-->
-
+	</div>
 		  <br>
 		  <div id="live" class="col-sm-10" >
               <div id="addbox" style="display:none">
@@ -529,7 +522,7 @@ $("#testQ").on('click', function () {
                           query = $(this).val();
                           $("#p_list").empty();
                           //docpiece search
-                          $.getJSON('/suggest_pieces/', {suggestion: query}, function (result) {
+                          $.getJSON("{% url 'suggest_pieces' %}", {suggestion: query}, function (result) {
                               $.each(result, function (i, field) {
                                   var button = document.createElement('button');
                                   button.innerHTML = field['name'];
@@ -575,10 +568,9 @@ $("#testQ").on('click', function () {
               <div id="qbox" title="DocPiece Library" hidden>
   <p><h1> Edit the DocLogic here: </h1><ol id="qbox-list" ></ol></p>
 </div>
-			<div class='container-fluid' id="containment-wrapper">
+			  <div class='container-fluid' id="containment-wrapper" align="center">
 			<br><br>
-			   <!-- {% block content %} -->
-			   <!-- {% endblock %} -->
+				  <h1 style="font-size: 50px"><input height="100px" width="600px" id="title" placeholder="Title"></h1>
 				<div id="sortable">
 					<li class="ui-state-defaults ui-state-disabled t"><span></span><h1><b>LAST WILL AND
 						TESTAMENT <br> OF <br>{Applicant.FullName}</b></h1></li>

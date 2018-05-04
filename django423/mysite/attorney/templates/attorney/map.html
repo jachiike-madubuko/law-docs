@@ -24,10 +24,10 @@
     <img src="{% static 'img/LegalGenLogoBlue.png' %}" class="logo-img" alt="face">
     <div class="links">
         <ul class="nav nav-pills nav-stacked">
-            <li><a href='/blog/'>Pricing</a></li>
-            <li><a href='/contact/'>Partners</a></li>
-            <li><a href='/'>Get Started</a></li>
-            <li><a href='/blog/'>Login</a></li>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a href='https://waylon1.typeform.com/to/m74c5U'>Report a Bug</a></li>
+            <li><a href="https://jachiike-madubuko.github.io/legal_gen/">Github</a></li>
+            <li><a href="/">Logout</a>
         </ul>
     </div>
 </div>
@@ -78,7 +78,7 @@
         var dashboardHeader = $("#dashboardHeader");
                     $('td').empty();
 
-                    $.getJSON('/client_dashboard', {state: st}, function (result) {
+                    $.getJSON("{% url 'client_dashboard' %}", {state: st}, function (result) {
             $.each(result, function (i, field) {
                 var doc_prview = document.createElement('div');
                 doc_prview.innerHTML = '<p align="center">Title: ' + field['name'] + '<br>Type of Document: ' +
@@ -88,7 +88,7 @@
                 $("td").eq(i).html(doc_prview);
                 doc_prview.onclick = function () {
 
-                    $.getJSON('/post_form', {docID: field['legalID']}, function (result) {
+                    $.getJSON("{% url 'post_form' %}", {docID: field['legalID']}, function (result) {
                         //sends the docID to be cross referenced with the formID for loading
                         window.location.replace("{% url 'form_filler' %}");
                     });

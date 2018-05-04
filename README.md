@@ -30,7 +30,10 @@ Now push your commit to the parent branch:
 
 Thank you for updating the repo! 
 
-  
+## Run the Development Server
+To run the web application locally simple go to the legal_gen directory and enter the command:
+-`python django423/mysite/manage.py runserver`
+
 ## Technologies & Softwares
 1. Github is used for version control
 2. [Travis-CI](https://travis-ci.org/) is used for continuous integration 

@@ -17,9 +17,8 @@ install:
  # - pip install .
   - pip install -q Django==2.0.0 --quiet
   - pip install -r requirements.txt
-  - python django423/mysite/setup.py install
+ # - python django423/mysite/setup.py install
   #- pip install -U pytest
- # - python setup.py -q install
 
 
 notifications:

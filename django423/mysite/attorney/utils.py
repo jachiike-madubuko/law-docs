@@ -192,9 +192,9 @@ def by_user(user, lawyer=False, client=False, document=False):
     #     find_state_by_ppl.filter()
 
 
-def create_document(f_stack_url):
+def create_document(name, f_stack_url):
     print('creating document')
-    newDoc = Document(filestackURL=f_stack_url)
+    newDoc = Document(name=name, filestackURL=f_stack_url)
     newDoc.save()
     print('saved')
 
@@ -208,8 +208,9 @@ def create_piece(userID, piece):
     newPiece.save()
 
 
-def create_form(formdata):
-    newForm = Form(name='s', doceditor=formdata)
+def create_form(formdata, docID):
+    doc = Document.legals.get(legalID=docID)
+    newForm = Form(doceditor=formdata, doc=doc)
 
     newForm.save()
     print(newForm)
