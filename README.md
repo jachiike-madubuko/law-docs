@@ -40,14 +40,14 @@ To run the web application locally simple go to the legal_gen directory and ente
 3. [Heroku Deployment](https://devcenter.heroku.com/categories/python) is used for deployment
 4. [Python Django](https://www.djangoproject.com/) is the framework used to implement the MVC layout
 5. [jQuery](https://jquery.com/) is used to implement AJAX and the UI for Document editting.
-6. [TinyMCE](https://www.tinymce.com/) is a feature rich text editor with a jQuery plugin that will make document editing simple
-7. [Djano-Front](http://django-front.readthedocs.io/en/latest/setup.html#add-your-own-editor) is used a socket for TinyMCE. A user will click on a section they would like editted, then Django-front will use jQuery to place a TinyMCE editor on top of that section. [Example here](https://camo.githubusercontent.com/653bba1510950ead2922e198bc5ceb1d76434cb3/687474703a2f2f646a616e676f2d66726f6e742e72656164746865646f63732e6f72672f656e2f6c61746573742f5f696d616765732f66726f6e742d656469742d75736167652e676966)
-7. [Taggit](https://django-taggit.readthedocs.io/en/latest/) is used for simple tagging of DocPieces and Documents, and Forms
-7. [Typeform API]( https://developer.typeform.com/responses/) is used for client interfacing when gathering data to craft a document
-8. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
-10. [MySQL](https://www.mysql.com/) is the database management system.
-11. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
-12. [legalgenddoc.com](http://legalgenddoc.com) is the URL that our website will use.  
+6. [TinyMCE](https://www.tinymce.com/) is a feature rich text editor with a jQuery plugin that will make document editing simple.
+7. [FormBuilder](http://formbuilder.readthedocs.io/en/latest/) is used for the lawyer's form building page, and also services as the client's form completion interface.
+8. [Taggit](https://django-taggit.readthedocs.io/en/latest/) is used for simple tagging of DocPieces and Documents, and Forms
+9. [New Signature Interactive US Map]( https://newsignature.github.io/us-map/) is used for clients to search for documents by state.
+10. [File Stack API](https://dev.filestack.com/apps/AfEkWPbqOQYqKQt291D7dz/picker) is used to handle text blocks and user information and convert forms to pdfs.
+11. [PostgreSQL](https://www.mysql.com/) is the database management system.
+12. [Stripe](https://stripe.com/docs/api) an api we will use for for payment processing.
+13. [legalgenddoc.com](http://legalgenddoc.com) is the URL that our website will use.  
 
 
 
