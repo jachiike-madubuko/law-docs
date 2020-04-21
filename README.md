@@ -53,5 +53,5 @@ Thank you for updating the repo!
 
 ## Acknowledgements 
 
-Matthew Sessa for letting us use his server to host our website. We would also like to thank him for his help figuring out Qunit testing.  
+@Mrzoraman Matthew Sessa for letting us use his server to host our website. We would also like to thank him for his help figuring out Qunit testing.  
 
